@@ -44,23 +44,28 @@
 \author{Laura Jarin-Lipshitz, Sebastiani Aguirre Navarro and Rachel Holladay}
 \maketitle
 
-\rhnote{Below are notes/outline. To be actually written soon}
-- grasping is key to robotic manipulation
-- our goal is to predict grasp success and quality
-- we imagine a scene where there is a robot manipulator and camera that gives view of the object to be grasped
-- our goal is to decide how to grasp the object
-- so given the view, we want to decide which grasp gives highest probability of success
-- generating grasps is a hard robotic problem, so assume we have a black box way to generate grasps
-- therefore our input is an image and a grasp and we want to say if success. 
+Reliable grasping is at the heart of most robotic manipulation tasks. 
+The goal of our project is predict grasp success and quality to enable reliable grasping. 
+We imagine a scene with a robotic manipulator, a goal object to be grasped, and camera providing a view of the goal object.
+We want to decide how to grasp that goal object such that maximizes our probability of a successful grasp.
+Generating grasps given a view of the scene is its own difficult research area~\cite{pinto2016supersizing,lenz2015deep,jiang2011efficient}.
+Therefore, for the context of this machine learning-focused project, we will assume we have a black box way to generate grasps (detailed later). 
+Therefore our learning input is an image and proposed grasp and our desired output is a metric of success of quality. 
+By learning this relation, we could score and then rank all possible grasps for an object and execute the best one. 
 
-- learning in robotic manipulation has recently gotten really popular. 
-- to facilitate large scale learning, people have begin producing datasets
-- we have closely investigated two dataset and are (currently) planning to use both: DexNet~\cite{mahler2017dex} and BigBird~\cite{singh2014bigbird}
-- DexNet provides ....
-- BigBird provides .... Bigbird was used in \cite{pas2017grasp} that develop (this method of creating grasps). 
-- DexNet advtanges are comes with grasps and its massive but its synthetic point clouds while big bird is smaller, requires processing but is on real grasps
-- Given these dataset hope to apply a CNN architecture, which is the most commonly used method in this field
-- we will be evaluating our approach based on our performance on test data and not on a real robotic platform, due to time constrains. 
+The relatively recent interest in the intersection of large scale learning and manipulation has led to the publication of several grasping datasets. 
+We have investigated and are (currently) planning to use both DexNet 2.0~\cite{mahler2017dex} and BigBIRD~\cite{singh2014bigbird}. 
+\begin{enumerate}
+   \item DexNet 2.0 provides 6.7 million sets of synthetic point clouds, grasps and analytical grasp metrics. Here, the grasps are provided by the data set, eliminating the need to generate them. The grasps are for a parallel jaw-gripper and the dataset is based off of millions of 3D models of common objects on a table.  
+   \item BigBIRD is a dataset across 125 objects placed on a table, where each object has 600 images and 3D point clouds. This creates a dataset of 75,000 sets. While this is a smaller set then DexNet, the point clouds are not synthetic. ten Pas et al utilized this dataset to generate grasps and classify their success rate~\cite{pas2017grasp}. Their grasp generation method for a parallel jaw-gripper is open source, allowing us to use it as a black box. 
+\end{enumerate}
+
+Our hope is that we can utilize both the datasets, nearly interchangably, to compare across sythetic and real point cloud data and to compare the effect of the size of the dataset. 
+Following the lead of following papers, we plan on create and applying a CNN architecture. 
+We will not be using the learning code released with either project. 
+We plan to evaluate our approach based on our performance on a hold-out set of test data. 
+Due to time constraints, we do not expect to evaluate our prediction method on a real robotic platform. 
+
 
 
 
