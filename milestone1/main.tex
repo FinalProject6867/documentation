@@ -44,17 +44,28 @@
 \author{Laura Jarin-Lipshitz, Sebastiani Aguirre Navarro and Rachel Holladay}
 \maketitle
 
-Input Text
+\rhnote{Below are notes/outline. To be actually written soon}
+- grasping is key to robotic manipulation
+- our goal is to predict grasp success and quality
+- we imagine a scene where there is a robot manipulator and camera that gives view of the object to be grasped
+- our goal is to decide how to grasp the object
+- so given the view, we want to decide which grasp gives highest probability of success
+- generating grasps is a hard robotic problem, so assume we have a black box way to generate grasps
+- therefore our input is an image and a grasp and we want to say if success. 
+
+- learning in robotic manipulation has recently gotten really popular. 
+- to facilitate large scale learning, people have begin producing datasets
+- we have closely investigated two dataset and are (currently) planning to use both: DexNet~\cite{mahler2017dex} and BigBird~\cite{singh2014bigbird}
+- DexNet provides ....
+- BigBird provides .... Bigbird was used in \cite{pas2017grasp} that develop (this method of creating grasps). 
+- DexNet advtanges are comes with grasps and its massive but its synthetic point clouds while big bird is smaller, requires processing but is on real grasps
+- Given these dataset hope to apply a CNN architecture, which is the most commonly used method in this field
+- we will be evaluating our approach based on our performance on test data and not on a real robotic platform, due to time constrains. 
 
 
 
-
-
-
-
-\begin{thebibliography}{9}
-\bibitem{bishop}
-Bishop, Christopher M., \textit{Pattern Recognition and Machine Learning}. Springer, 2006. 
-\end{thebibliography}
+{\footnotesize
+    \bibliographystyle{ieeetr}
+\bibliography{../references}}
 
 \end{document}
