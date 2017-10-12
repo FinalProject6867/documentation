@@ -46,36 +46,16 @@
 
 \section{Algorithms and Evaluation}
 
-(To be written more formally and filled in)
+Our goal is to use machine learning techniques to predict the probability of successfully grasping an unknown object with a robotic arm. Specifically, we will use a convolutional neural network (CNN) to decide whether or not to attempt a simulated robotic grasp, and then quantify the success of our network's decision in said simulation. The input to our network will be a point cloud generated from a depth sensor and a candidate grasp, and the output will be a probability of grasp success, which we will threshold to decide whether to make a grasp. The training data will consist of point clouds from the dataset Big Bird\cite{singh2014bigbird}, and grasp quality labels created by the open source Grasp Pose Generator(GPG) software\cite{pas2017grasp}. The grasping simulation will be performed in robotics simulator Gazebo [[add citation]] using the model of the Kinova Jaco Robotic arm and gripper [[add github citation]].
 
-- Our goal is to predict grasp success given a grasp and image
-- We will use the dataset provided by big bird\cite{singh2014bigbird} that gives point clouds of objects
-- we will use software released by authors of \cite{pas2017grasp} to generate grasps and we will implement the labeling scheme provided in the paper to create the data set
-- the data set is quite large so maybe we will only use a portion? (like maybe only a subset of the objects?)
+In recent work using the Big Bird Data set\cite{pas2017grasp}, a four-layer CNN with architecture near identical to the LeNet\cite{lecun1998gradient} is used. However LeNet was originally developed for handwritten character recognition, and is therefore not likely to be an optimal architecture for this problem. We will explore and compare different CNN architectures to see if we can achieve a higher rate of grasp success as compared to their paper. [[add architectures we will try]]
 
-- in the paper they implement four-layer CNN that is the same structure as LeNet~\cite{lecun1998gradient}. "two convolutional/pooling layers followed by one inner product layer with a rectified linear unit at the output and one more inner product layer with a softmax on the output. "
-- Input is representation of object surfaces as seen by depth sensor and the grasp candidate. The output is prediction of whether or not the grasp candidate is a grasp. 
-- Use stochastic gradient descent with specified learning rate
-- They explored the grasping representation, whether the model was trained with CAD models and level of information about object
-
-- however lenet was originally developed for handwritten character recognition, where they define the MNIST data set on that paper. while this problem is still looking for patterns, it is a different application
-- therefore in contrast we want to change the CNN structure and learning design choices to see their effect on performance. 
-- we will treat what is in the paper as the baseline and compare it against model alterations
-- More specifically we will change \rhnote{these edits to the CNN - need to fill some different things we could try}
-
-- in the paper they use several metrics: they compare accuracy as a function of number of training iterations. \rhnote{We will also use this?}
-- they also run a series of real robot experiments. as mentioned in milestone 1, we will not be doing this
-- \rhnote{We will use what other metrics?}
 
 \section{Risk Management}
 
-(To be more formally written out later)
+One major risk is that our main goal of improving the architecture of the CNN is not achieved. We hope to treat the network in the paper as the baseline and, by exploring other architectures, outperform the network. however there is a risk that we will not find an architecture with better performance, especially given the difference in our evaluation methods from theirs. However, even if we cannot improve on the percent grasp success in simulation, we hope to explore the effects of different architectures on the types of objects that the network fails to predict correctly. 
 
-- We are provided the data set and grasping generation algorithm. We have to implement the labeling algorithm from the paper, which means there is a risk that we make a mistake in our labeling implementation. This would lead to a biased data set, which could break everything. we plan to stress test our labeling procedure and visually inspect (?) the labeling
-
-- we hope to treat the network in the paper as the baseline and, by exploring other architectures, outperform the network. however there is a chance that we cannot. however even if we cant do better we hope to explore the effects of different architectures to better understand. 
-
-- we are going to be testing everything in simulation. This is due to time and resource limitations. However, robotics is inherently about a real robot interacting with the physical world. Therefore, there is a part (from the robotics side, not the ML side) that is incomplete
+Another risk we will is our choice to evaluate our CNN's performance in simulation. We made this choice due to time and resource limitations. However, robotics is inherently about a real robot interacting with the physical world. Therefore, there is a part of the project (from the robotics side, not the ML side) that is incomplete, since simulated grasps are highly dependent on the fidelity of the robot model.
 
 \section{Division of Labor}
 
