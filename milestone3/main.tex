@@ -1,0 +1,71 @@
+\documentclass[letterpaper, 10 pt]{article} 
+
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage[font=footnotesize]{subcaption}
+\usepackage[font=footnotesize]{caption}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage[normalem]{ulem}
+\usepackage{verbatim}
+\usepackage[export]{adjustbox}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{siunitx}
+\usepackage[utf8]{inputenc}
+\usepackage[TS1,T1]{fontenc}
+\usepackage{array, booktabs}
+\usepackage{caption}
+\usepackage[cal=cm]{mathalfa}
+
+% Labels in IEEE format
+\newcommand{\eref}[1]{(\ref{#1})} % Equation
+\newcommand{\sref}[1]{Sec.~\ref{#1}} % Section
+\newcommand{\figref}[1]{Fig.~\ref{#1}} % Figure
+\newcommand{\tref}[1]{Table~\ref{#1}} %Table
+\newcommand{\aref}[1]{Algorithm~\ref{#1}} %Algorithm
+\renewcommand*\rmdefault{ppl}
+\setlength{\textfloatsep}{5pt}
+
+\usepackage{ifthen}
+\usepackage[usenames,dvipsnames,table]{xcolor}
+\newboolean{include-notes}
+\setboolean{include-notes}{true} 
+% http://en.wikibooks.org/wiki/LaTeX/Colors
+\newcommand{\rhnote}[1]{\ifthenelse{\boolean{include-notes}}%
+ {\textcolor{blue}{\textbf{RH: #1}}}{}}
+
+\begin{document}
+
+% paper title
+\title{6.857 Final Project: Milestone 3}
+\author{Sebastiani Aguirre Navarro and Rachel Holladay}
+\maketitle
+
+\section{Software Infrastructure}
+%For milestone 3, describe the software infrastucture you will use: what’s in a library versus what are you coding from scratch. How is the work split amongst your team? What questions are open?
+
+\rhnote{Edit what is commented below to only talk about software. Need to look into data set in more detail to describe}
+%Our goal is to use machine learning techniques to predict the probability of successfully grasping an unknown object with a robotic arm. Specifically, we will use a convolutional neural network (CNN) to decide whether or not to attempt a simulated robotic grasp, and then quantify the success of our network's decision in simulation. The input to our network will be a point cloud generated from a depth sensor and a candidate grasp, and the output will be a probability of grasp success, which we will threshold to decide whether to make a grasp. The training data will consist of point clouds from the dataset Big Bird~\cite{singh2014bigbird}, and grasp quality labels created by the open source Grasp Pose Generator(GPG) software~\cite{pas2017grasp}. The grasping simulation will be performed in robotics simulator Gazebo~\cite{koenig2004design} using the model of the Kinova Jaco Robotic arm and gripper~\cite{maheu2011evaluation}.
+
+\rhnote{Insert details on learning architectures} 
+
+\section{Open Questions}
+
+%One major risk is that our main goal of improving the architecture of the CNN is not achieved. We hope to treat the network in the paper as the baseline and, by exploring other architectures, outperform the network. however there is a risk that we will not find an architecture with better performance, especially given the difference in our evaluation methods from theirs. However, even if we cannot improve on the percent grasp success in simulation, we hope to explore the effects of different architectures on the types of objects that the network fails to predict correctly. 
+
+%Another risk we will is our choice to evaluate our CNN's performance in simulation. We made this choice due to time and resource limitations. However, robotics is inherently about a real robot interacting with the physical world. Therefore, there is a part of the project (from the robotics side, not the ML side) that is incomplete, since simulated grasps are highly dependent on the fidelity of the robot model.
+
+\section{Division of Labor}
+
+While our group was originally started with three people, one of our group members has dropped the course, forcing us to change our division of labor. 
+Rachel will generate the data set from the open source repositories and set up the labeling mechanism. 
+Sebastiani will \rhnote{something about setting up the above learning frameworks}. 
+
+{\footnotesize
+    \bibliographystyle{ieeetr}
+\bibliography{../references}}
+
+\end{document}
