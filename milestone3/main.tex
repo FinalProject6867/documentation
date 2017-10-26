@@ -48,11 +48,23 @@
 %For milestone 3, describe the software infrastucture you will use: what’s in a library versus what are you coding from scratch. How is the work split amongst your team? What questions are open?
 
 \rhnote{Edit what is commented below to only talk about software. Need to look into data set in more detail to describe}
-%Our goal is to use machine learning techniques to predict the probability of successfully grasping an unknown object with a robotic arm. Specifically, we will use a convolutional neural network (CNN) to decide whether or not to attempt a simulated robotic grasp, and then quantify the success of our network's decision in simulation. The input to our network will be a point cloud generated from a depth sensor and a candidate grasp, and the output will be a probability of grasp success, which we will threshold to decide whether to make a grasp. The training data will consist of point clouds from the dataset Big Bird~\cite{singh2014bigbird}, and grasp quality labels created by the open source Grasp Pose Generator(GPG) software~\cite{pas2017grasp}. The grasping simulation will be performed in robotics simulator Gazebo~\cite{koenig2004design} using the model of the Kinova Jaco Robotic arm and gripper~\cite{maheu2011evaluation}.
+Our goal is to use machine learning techniques to predict the probability of successfully grasping an unknown object with a robotic arm. 
+The infrastructure of our project is broken into two sections: the data generation and the learning. 
 
+Our data will come as point clouds from the Big Bird dataset~\cite{singh2014bigbird}, which provides depth maps, RGB-D images and meshes.
+We have already secured access to this dataset, and while there are 125 objects in the data set, we do not expect to use all of them. 
+The next step in the data generation process is creating labeled grasps from the point cloud. 
+We will be using the open source grasp generation and labeling process package "Grasp Pose Generator (GPG)" from~\cite{pas2017grasp}. 
+The package detect 6 degree of freedom poses for parallel jaw grippers from point clouds. 
+The code is available through a Github repository and has a few dependencies, such as ROS and Eigen.
+Our goal is to use this package to generate data as soon as possible. 
+
+Given our labeled data, when can then turn to our learning algorithms. 
 \rhnote{Insert details on learning architectures} 
 
 \section{Open Questions}
+
+\rhnote{I dont really understand how this is different from last time..?}
 
 %One major risk is that our main goal of improving the architecture of the CNN is not achieved. We hope to treat the network in the paper as the baseline and, by exploring other architectures, outperform the network. however there is a risk that we will not find an architecture with better performance, especially given the difference in our evaluation methods from theirs. However, even if we cannot improve on the percent grasp success in simulation, we hope to explore the effects of different architectures on the types of objects that the network fails to predict correctly. 
 
