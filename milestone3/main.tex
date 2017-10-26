@@ -36,6 +36,9 @@
 % http://en.wikibooks.org/wiki/LaTeX/Colors
 \newcommand{\rhnote}[1]{\ifthenelse{\boolean{include-notes}}%
  {\textcolor{blue}{\textbf{RH: #1}}}{}}
+\newcommand{\sanote}[1]{\ifthenelse{\boolean{include-notes}}%
+ {\textcolor{green}{\textbf{SAN: #1}}}{}}
+
 
 \begin{document}
 
@@ -60,21 +63,28 @@ The code is available through a Github repository and has a few dependencies, su
 Our goal is to use this package to generate data as soon as possible. 
 
 Given our labeled data, when can then turn to our learning algorithms. 
-\rhnote{Insert details on learning architectures} 
+We will use Tensorflow and Keras to implement our learning algorithms. Keras specifically containes predefined many of the common layers used in deep neural networks.
+This will prove useful to run initial prototypes that build upon these common layers. Eventually, we will have to tweak the layers or add layers that are not predefined in Keras.
+This is where we will turn to Tensorflow. While Tensorflow already has many basic predefined layers, prototyping in it can be tedious. However Tensorflow provides the fundamental tools for defining custom operations and layers.
+There is also an existing ``Model Zoo'' for Keras and Tensorflow. Since many of the proposed architectures have been already trained with the purpose of detecting or classifying objects, one strategy is to properly modify the input layers and
+perform Transfer Learning to see if we can reduce the training time significantly in our grasper network when tuning it on the RGBD data. We will also write from scratch several prototypes that apply the concepts of ResNet, Network in Network
+and Inception so that we can compare it to other transfered off the shelf models. 
 
 \section{Open Questions}
 
-\rhnote{I dont really understand how this is different from last time..?}
+\rhnote{I dont really understand how this is different from last time..?}  
+\sanote{I guess, on a more technical level, an open question would be what kind of data representation is best for the learning..., aside that IDK}
 
 %One major risk is that our main goal of improving the architecture of the CNN is not achieved. We hope to treat the network in the paper as the baseline and, by exploring other architectures, outperform the network. however there is a risk that we will not find an architecture with better performance, especially given the difference in our evaluation methods from theirs. However, even if we cannot improve on the percent grasp success in simulation, we hope to explore the effects of different architectures on the types of objects that the network fails to predict correctly. 
 
 %Another risk we will is our choice to evaluate our CNN's performance in simulation. We made this choice due to time and resource limitations. However, robotics is inherently about a real robot interacting with the physical world. Therefore, there is a part of the project (from the robotics side, not the ML side) that is incomplete, since simulated grasps are highly dependent on the fidelity of the robot model.
 
+
 \section{Division of Labor}
 
 While our group was originally started with three people, one of our group members has dropped the course, forcing us to change our division of labor. 
 Rachel will generate the data set from the open source repositories and set up the labeling mechanism. 
-Sebastiani will \rhnote{something about setting up the above learning frameworks}. 
+Sebastiani will set up an environment in a cloud provider with GPUs and start coding the Network In Network and Inception based models in Keras/Tensorflow and transfer learn layers of a pretrained YOLO onto our problem space.  
 
 {\footnotesize
     \bibliographystyle{ieeetr}
