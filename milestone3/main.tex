@@ -50,7 +50,6 @@
 \section{Software Infrastructure}
 %For milestone 3, describe the software infrastucture you will use: what’s in a library versus what are you coding from scratch. How is the work split amongst your team? What questions are open?
 
-\rhnote{Edit what is commented below to only talk about software. Need to look into data set in more detail to describe}
 Our goal is to use machine learning techniques to predict the probability of successfully grasping an unknown object with a robotic arm. 
 The infrastructure of our project is broken into two sections: the data generation and the learning. 
 
@@ -72,12 +71,9 @@ and Inception so that we can compare it to other transfered off the shelf models
 
 \section{Open Questions}
 
-\rhnote{I dont really understand how this is different from last time..?}  
-\sanote{I guess, on a more technical level, an open question would be what kind of data representation is best for the learning..., aside that IDK}
-
-%One major risk is that our main goal of improving the architecture of the CNN is not achieved. We hope to treat the network in the paper as the baseline and, by exploring other architectures, outperform the network. however there is a risk that we will not find an architecture with better performance, especially given the difference in our evaluation methods from theirs. However, even if we cannot improve on the percent grasp success in simulation, we hope to explore the effects of different architectures on the types of objects that the network fails to predict correctly. 
-
-%Another risk we will is our choice to evaluate our CNN's performance in simulation. We made this choice due to time and resource limitations. However, robotics is inherently about a real robot interacting with the physical world. Therefore, there is a part of the project (from the robotics side, not the ML side) that is incomplete, since simulated grasps are highly dependent on the fidelity of the robot model.
+From an infrastructure perspective, we are still discussing the best representation of the data for our learning algorithm.
+There is a lengthy discussion and comparison of representing grasp candidates in~\cite{pas2017grasp} with respect the volume that the grasp occupies.
+We will use their reported experiences alongside our own representation to determine the best represetation. 
 
 
 \section{Division of Labor}
