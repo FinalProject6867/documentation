@@ -65,8 +65,11 @@ Together the depth image and grasp vector compose our input.
 
 Our label is given by the robust epsilon quality grasp metric (defined in~\cite{seita2016large}), which is thresholded by the value 0.002 to create binary labels.
 
-For our initial results we sampled 10,000 data points from the 6.7 millon. 
-\rhnote{Describe network and initial results} \figref{fig:accuracy}
+For our initial results we sampled 10,000 data points from the 6.7 millon. Since the structure of the data changed considerably, pretrained models cannot be used there is not an RGB component in the data. Therefore, we designed a simple Residual Network
+like the one shown in \figref{fig:network}. The idea is to pass the 32x32 depth maps through a ResNet with Batch Normalization to extract 1x8 features from it, and then these features are concatenated to the hand pose features that are passed to a fully connected layer that ouputs
+the likelihoods of each class. The training was carried in Keras, using the RMSProp optimizer during 50 epochs with a batch size of 32. Given that we had a class imbalance of 1858 positive vs 8150 negatives in our datset subset, we assigned weights such that the underrepresented class
+could influnce training during each gradient descent step. This initial architecture did not work so well, however, since the error in the Test set was 81.0\%. If we observe the curves for loss and accuracy on Train and Validation during training in \figref{fig:accuracy} and \figref{fig:results},
+we can see that the network is overfitting. Two options to go from here to address this overfitting problem is to add the remaining the data once it is generated or reduce the model complexity and train this on the 10k subset. 
 
 \begin{figure}[t!]
     \centering
@@ -111,7 +114,7 @@ If we are able to use the BigBird data set, we will consider using it in conjunc
 \section{Division of Labor}
 
 Rachel generated the training data from the DexNet data sets and set of the labeling mechanism. 
-Sebastiani will set up an environment in a cloud provider with GPUs and start coding the Network In Network and Inception based models in Keras/Tensorflow and transfer learn layers of a pretrained YOLO onto our problem space.  \rhnote{This is what we had written last time. Is it still correct?}
+Sebastiani set up an environment in a AWS with GPUs, coded and trained initial Network In Network, Inception and ResNet based models in Keras/Tensorflow.  \rhnote{This is what we had written last time. Is it still correct?}
 
 {\footnotesize
     \bibliographystyle{ieeetr}
