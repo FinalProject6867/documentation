@@ -70,8 +70,8 @@ For our initial results we sampled 10,000 data points from the 6.7 millon.
 Since the structure of the data changed considerably, pretrained models cannot be used since there is not an RGB component in the data. 
 Therefore, we designed a simple Residual Network like the one shown in \figref{fig:network}. 
 The idea is to pass the 32x32 depth maps through a ResNet with Batch Normalization to extract 1x8 features from it, and then these features are concatenated to the hand pose features that are passed to a fully connected layer that ouputs the likelihoods of each binary class. 
-The training was carried in Keras~\cite{chollet2017keras}, using the RMSProp optimizer during 50 epochs with a batch size of 32. 
-Given that we had a class imbalance of 1858 positive vs 8150 negatives in our datset subset, we assigned weights such that the underrepresented class could influnce training during each gradient descent step. 
+The training was carried in Keras~\cite{chollet2017keras}, using the RMSProp optimizer during 50 epochs with a batch size of 32 and 10\% of the dataset was used as Test. 
+Given that we had a class imbalance of 1858 positive vs 8150 negatives in our datset subset, we assigned weights of 0.8 for positive and 0.2 for negative such that the underrepresented class could influnce training during each gradient descent step. 
 This initial architecture did not work so well, however, since the error in the Test set was 81.0\%. 
 If we observe the curves for loss and accuracy on Train and Validation during training in \figref{fig:loss} and \figref{fig:accuracy}, we can see that the network is overfitting. 
 
