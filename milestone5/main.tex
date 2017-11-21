@@ -58,7 +58,10 @@ Our goal is to use neural networks to classify whether a particular grasp will s
 We utilize the Dexerity Network (DexNet) 2.0 data set~\cite{mahler2017dex}, that has 6.7 million synthetic point clouds with parallel-jaw grasps (a common robot hand type of two parallel fingers) and analytical grasp metrics.
 The authors of the data set trained a Grasp Quality Convolutional Neural Network (GQ-CNN), which achieved 85.7\% accuracy on their classification task.
 To accomplish the same task, we will be experimenting with new architectures, intput formats, other modifications described in~\sref{sec:questions}.
-Through our experimentation we hope to first better understand how these parameters effect learning and to hopefully improve upon the accuracy. 
+Most of the recent machine learning papers in robotics present a problem, dataset and, usually, an optimized convolutional neural network with some architecture and input format. 
+Our goal is to explore the process of finding that CNN and exploring the factors that effect performance. 
+While our results will only be verified according to this data set, and therefore cannot be generalized to all CNNs, we hope to gain intution, understanding, and, hopefully, a higher accuracy. 
+Having explored various components, we will optimize our final, best architecture. 
 
 We will first describe the data set generation process and the features provided in the data set~\sref{sec:data_set}. 
 Understanding and processing this data set has become a larger element of our project then previously anticipated. 
@@ -85,7 +88,7 @@ The second image, the "z image" is untransformed and represents the distance fro
 The data set of 6.7 million data points has 21.1\% positive examples. 
 This is unsurprising, since it is much more difficult to find successful grasps, as compared to failed grasps. 
 
-The published Dex-Net 2.0 data set contains both sets of images for each data point in addition to grasp quality metrics and the grasp, represented by a 7-dimensional vector, specifying details of the grasp center, angle, object center and gripper width. 
+The published Dex-Net 2.0 data set contains both sets of images for each data point in addition to grasp quality metrics and the grasp, represented by a 7-dimensional vector, specifying details of the grasp center, angle, object center and gripper width and several over parameters. 
 Our label is given by the robust epsilon quality grasp metric (defined in~\cite{seita2016large}), which is thresholded by the value 0.002 to create binary labels.
 
 From the 6.7 million data points, we create two types of data sets:
@@ -96,6 +99,8 @@ From the 6.7 million data points, we create two types of data sets:
 We further discuss the motivation for this distinction in \sref{sec:questions}. 
 For all data sets we include all possible features, although some architectures might not leverage all features. 
 
+Since we are sampling our data sets, we will sample multiple copies and average the final results across each version~\footnote{This was not done for this milestone, but will be done in the final report.}.
+
 \section{Results}
 \label{sec:results}
 \rhnote{give the results from the architectures that we have}
@@ -104,16 +109,29 @@ For all data sets we include all possible features, although some architectures 
 \label{sec:questions}
 
 \subsection{Input Format}
-\rhnote{our input versus what was used in the paper. also that other concatenated thing}
+One of the benefits of the Dex-Net data set is that it provides many features, allowing us to vary what we use as input to the network. 
+We are and will continue to experiment with various inputs. 
+Some inputs might be particularly informative but costly to collect when running the system on a real robot. 
+\rhnote{say what we use above}
 
 \subsection{Balancing Data Sets}
-\rhnote{number of positive versus negative examples. however the 80/20 split might match real world distribution..}
+As mentioned previously, Dex-Net 2.0 contains approximately 20\% positive examples. 
+This is not inherenely problematic given that the training and testing sets are drawn from the same distribution, with this same ratio.
+However, by sampling subsets of our data set, we can achieve any positive-to-negative ratio and thus explore how changing this ratio effects accuracy. 
+Furthermore, we can explore what happens when the distributions of the training and testing set don't match. 
+When utilizing these learning architectures on a real robotic system, (hence making a new test set), we might not be able to accurately predict our positive-to-negative distribution. 
+If so, how should we construct our training set to handle this? 
 
-\subsection{Normalization}
-\rhnote{they normalized, should we}
+\subsection{Data Set Size}
+The Dex-net data set contains 6.7 million data points. 
+For computational reasons, we are sampling a subset of these points. 
+However, we can vary the size of this subset to compare the trade-off between the accuracy and the size of the training set. 
+How much does this relationship vary between input formats and architectures? 
+Are some combinations more data-hungry?
 
 \subsection{Architecture Structure}
-\rhnote{list a couple different arch's}
+One of the largest sources of experimentation thus far and continuing forward is our choice of architecture. 
+\rhnote{list a few examples} 
 
 \section{Work Distribution}
 \rhnote{give basically same thing as before}
