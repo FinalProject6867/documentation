@@ -117,11 +117,29 @@ Since we are sampling our data sets, we will sample multiple copies and average 
 \caption{The Loss and Accuracy across the Training and Validation Sets for our Inception Net} \label{fig:inception_results}
 \end{figure*}
 
+\begin{figure*}[t!]
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=0.75\columnwidth]{figs/balanced_resnet_accuracy.pdf}
+        \caption{Accuracy} \label{fig:accuracy}
+        \end{subfigure}
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=0.75\columnwidth]{figs/balanced_resnet_loss.pdf}
+        \caption{Loss} \label{fig:loss}
+    \end{subfigure}
+\caption{The Loss and Accuracy across the Training and Validation Sets for our ResNet using the balanced data set.} \label{fig:resnet_results}
+\end{figure*}
+
 
 \begin{figure}[t!]
     \centering
         \includegraphics[width=0.7\columnwidth]{figs/inception_net.png}
     \caption{Network Structure of Inception Net} \label{fig:inception_net}
+\end{figure}
+
+\begin{figure}[t!]
+    \centering
+        \includegraphics[width=0.7\columnwidth]{figs/balanced_resnet.png}
+    \caption{Network Structure of ResNet} \label{fig:res_net}
 \end{figure}
 
 \section{Research Questions}
