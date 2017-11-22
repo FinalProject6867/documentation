@@ -147,68 +147,45 @@ While there is much modification to be done on the networks (discussed in \sref{
 
 \section{Research Questions}
 \label{sec:questions}
+Below we present several of the research questions we will continue to explore. 
 
 \subsection{Input Format}
 One of the benefits of the Dex-Net data set is that it provides many features, allowing us to vary what we use as input to the network. 
 We are and will continue to experiment with various inputs. 
 Some inputs might be particularly informative but costly to collect when running the system on a real robot. 
-Currently, the input format is a 32x32x1 depth map and a 1x7 pose vector. It is our intention to also use the representation used in the DexNet paper as soon as it becomes available.
-This representation is as described in the Data Set section and shall serve as our baseline.. 
+Currently, the input format is a 32x32x1 depth map and a 1x7 pose vector. 
+It is our intention to also use the representation used in the DexNet paper as soon as it becomes available~\footnote{We are coordinating with the authors of the paper}.
+This representation is as described in the Data Set section and shall serve as our baseline. 
 
 \subsection{Balancing Data Sets}
 As mentioned previously, Dex-Net 2.0 contains approximately 20\% positive examples. 
 This is not inherenely problematic given that the training and testing sets are drawn from the same distribution, with this same ratio.
 However, by sampling subsets of our data set, we can achieve any positive-to-negative ratio and thus explore how changing this ratio effects accuracy. 
-By doing this, we avoid a model to overfit and artificially think it is doing well by predicting ona class on all samples.  
+By doing this, we avoid a model to overfit and artificially think it is doing well by predicting one class on all samples.
+(For example, a very trival way to achieve 80\% accuracy would be to predict negative for all examples.)
 
 \subsection{Data Set Size}
 The Dex-net data set contains 6.7 million data points. 
 For computational reasons, we are sampling a subset of these points. 
 However, we can vary the size of this subset to compare the trade-off between the accuracy and the size of the training set. 
 Deep learning models tend to require a rather large quantity of data depending the classification task that it is being learned and how complex the data is.
-For now, since the data consists of just small 32x32x1 images and 1x7 vectors, and we learning a binary classification task, we reasoned that we could start by using a small subset of the 6.7 million data points
-to produce a model of reasonable performance.
+
+For now, since the input data consists of just small 32x32x1 images and 1x7 vectors, and we learning a binary classification task, we reasoned that we could start by using a small subset of the 6.7 million data points to produce a model of reasonable performance.
 
 \subsection{Architecture Structure}
 One of the largest sources of experimentation thus far and continuing forward is our choice of architecture. 
-As our starting point, we produced an architecture that follows the concept of residual networks. This model consists of instead of learning a direct mapping of the input to the output, to learn ``residue'' over this input. Subsequently, we produced another architecture that follows the Inception model.
+As our starting point, we produced an architecture that follows the concept of residual networks. 
+This model consists of instead of learning a direct mapping of the input to the output, to learn ``residue'' over this input. Subsequently, we produced another architecture that follows the Inception model.
 In this model, the concept applied was that each at each layer instead of doing one convolution layer we perform in parallel several convolution and pooling operations of different kernel sizes(1x1, 3x3, 5x5 convolutions, 3x3 max pooling), paired with dropout regularization with probability of 0.7.
 The output of this parallel operations are concatenated on the depth dimension before being fed to the next layer. The idea behind this type of architecture is that, paired with regularization, the network could learn which mapping works best at each stage. In this iteration, we also trained the residual network
 on balanced dataset with 0.7 dropout regularization. In addition, all networks have batch normalization after each convolution, to mitigate internal covariances shifts. Architecture details for each are shown in the figures. This are initial architectures and not final. As we keep training and modifying them accordingly, we will come up with the proper parameters using the validation and testing accuracy as our metric.
 
-\section{Work Distribution}
-\rhnote{give basically same thing as before}
 
 \begin{comment}
-
-
-Each object is paired with 2.5D point clouds, referred to as depth images, which are rendered with a variety of object and camera poses, where the camera intrinsics are known and used to center the depth image in a standardized fashion.
-Each image is a black and white 32 by 32 pixel matrix. 
 
 Therefore, we designed a simple Residual Network like the one shown in \figref{fig:network}. 
 The idea is to pass the 32x32 depth maps through a ResNet with Batch Normalization to extract 1x8 features from it, and then these features are concatenated to the hand pose features that are passed to a fully connected layer that ouputs the likelihoods of each binary class. 
 The training was carried in Keras~\cite{chollet2017keras}, using the RMSProp optimizer during 50 epochs with a batch size of 32 and 10\% of the dataset was used as Test. 
-Given that we had a class imbalance of 1858 positive vs 8150 negatives in our datset subset, we assigned weights of 0.8 for positive and 0.2 for negative such that the underrepresented class could influnce training during each gradient descent step. 
-This initial architecture did not work so well, however, since the error in the Test set was 81.0\%. 
-If we observe the curves for loss and accuracy on Train and Validation during training in \figref{fig:loss} and \figref{fig:accuracy}, we can see that the network is overfitting.
-
-\begin{figure*}[t!]
-    \begin{subfigure}[t]{0.49\textwidth}
-        \includegraphics[width=0.99\columnwidth]{figs/accuracy.pdf}
-        \caption{Accuracy} \label{fig:accuracy}
-        \end{subfigure}
-    \begin{subfigure}[t]{0.49\textwidth}
-        \includegraphics[width=0.99\columnwidth]{figs/loss.pdf}
-        \caption{Loss} \label{fig:loss}
-    \end{subfigure}
-\caption{Initial Loss and Accuracy across the Training and Validation Sets} \label{fig:results}
-\end{figure*}
-
-\section{Division of Labor}
-
-Rachel generated the training data from the DexNet data sets and set of the labeling mechanism. 
-Sebastiani set up an environment in a AWS with GPUs, coded and trained initial Network In Network, Inception and ResNet based models in Keras/Tensorflow. 
-
 \end{comment}
 
 {\footnotesize
