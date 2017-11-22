@@ -103,8 +103,10 @@ Since we are sampling our data sets, we will sample multiple copies and average 
 
 \section{Results}
 \label{sec:results}
-Because we still in the stages of development, we have not included an error in the test set. This is because we do not expect any good performances on the test if we do not see any good performance on the validation set. As shown in the figures again, the models are overfitting since we can see the
-training loss to decrease while the validation loss increases. While there is much modification to be done on the networks, it may well be that the current representation of the data is not exploitable enough to learn any discriminative features. 
+During these stages of development, we are only evaluating our results according to the validation set. 
+Since we are not yet achieving good enough performance on the validation set and are not doing parameter selection, we do not yet need to evaulate on the testing set. 
+As shown in the figures again, the models are overfitting since we can see the training loss to decrease while the validation loss increases. 
+While there is much modification to be done on the networks (discussed in \sref{sec:questions}), we also plan to experiment with the representation of the data.
 
 \begin{figure*}[t!]
     \begin{subfigure}[t]{0.49\textwidth}
