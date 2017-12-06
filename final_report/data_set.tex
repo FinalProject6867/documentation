@@ -1,0 +1,39 @@
+% !TEX root = main.tex
+
+\section{Data Set}
+\label{sec:data_set}
+
+\rhnote{describe dex net data set, very similar to before}
+
+\begin{comment}
+We are using the Dex Net 2.0 data set as first presented in~\cite{mahler2017dex}. 
+We first briefly summarize their data generation process before describing how we manipulated the data. 
+
+Mahler et al define a generative graphical model defined over the camera pose, object shape and pose, friction coeffient, grasp, depth image and success metric. 
+To generate the data set they make i.i.d (independent and identically distributed) samples from their generative graphical model, resulting in 6.7 million data points. 
+
+The data set is defined over 1,500 object meshes that were used in Dex-Net 1.0~\cite{mahler2016dex}, collected from a variety of other data bases and standardized with respect to position.
+For each object, they generated 100 parallel jaw grasps via rejection sampling of antipodal pairs and evaluated a grasp metric on each grasp. 
+Additionally, each object is paired with a rendered depth image (2.5D point cloud~\footnote{The images are 2D matrics that are referred to as 2.5D in robotics literature because they display depth information.}) from the sampled camera pose. 
+
+The GQ-CNN takes two images as input. The first is the depth image, called the "aligned image", transformed to center and axis align according the grasp point. 
+Hence this image captures the scene and grasp in one representation. 
+The second image, the "z image" is untransformed and represents the distance from the gripper to the camera.
+
+The data set of 6.7 million data points has 21.1\% positive examples. 
+This is unsurprising, since it is much more difficult to find successful grasps, as compared to failed grasps. 
+
+The published Dex-Net 2.0 data set contains both sets of images for each data point in addition to grasp quality metrics and the grasp, represented by a 7-dimensional vector, specifying details of the grasp center, angle, object center and gripper width and several over parameters. 
+Our label is given by the robust epsilon quality grasp metric (defined in~\cite{seita2016large}), which is thresholded by the value 0.002 to create binary labels.
+
+From the 6.7 million data points, we create two types of data sets:
+\begin{itemize}
+    \item \textbf{Unbalanced.} We randomly sample 10,000 data points from our entire set. We expect to sample approximately 20\% positive examples, matching the distribution of the original set.
+    \item \textbf{Balanced.} We randomly sample data points until we have 10,000 data points that are 50\% positive examples and 50\% negative examples. 
+\end{itemize}
+We further discuss the motivation for this distinction in \sref{sec:questions}. 
+For all data sets we include all possible features, although some architectures might not leverage all features. 
+
+Since we are sampling our data sets, we will sample multiple copies and average the final results across each version~\footnote{This was not done for this milestone, but will be done in the final report.}.
+
+\end{comment}
