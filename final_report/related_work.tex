@@ -3,9 +3,34 @@
 \section{Related Work}
 \label{sec:related_work}
 
-\rhnote{pull all papers from bibtex and folder and give summaries}
-\rhnote{below are notes}
+While we primarily build off of the Dex Net 2.0 paper~\cite{mahler2017dex}, there is a wide range of literature investigating learning how to grasp objects. 
+The overwhelming majority of the recent work has focus on using CNNs, although there are a few papers that use SVMs, kernel-density estimation and constrained optimization-based techniques~\cite{jiang2011efficient,kopicki2016one,el2012bridging}. 
 
+Ten Pas et al~\cite{pas2017grasp} developed a similar grasp detection algorithm to DexNet paper by generating grasp hypotheses and training a 4-layer CNN to perform binary classification on whether the grasp is viable. 
+They use a different grasp representation and rely on the BigBird data set~\cite{singh2014bigbird}. 
+Rather then classifying a grasp, Johns et al uses a CNN to learn a grasp function, which provides a score for each grasp. 
+At execution time, then can compare the scores of several grasps and select the best grasp~\cite{johns2016deep}. 
+
+The above works focus on using a parallel jaw gripper, a two finger hand where the fingers are parallel to each other and usually move together. 
+While this is a relatively simple hand, it is ubiquitous in industry and research and still allows for complex manipulation tasks. 
+However, people have worked to expand this grasp prediction to more complex, multi-fingered hands using various CNN architectures~\cite{luplanning,varley2015generating,zhou20176dof}. 
+
+Within the grasp learning community, and in fact, within the robotics learning community there is a pull between real data collected through a robotic platform and data generated from a physics simulator. 
+While data collected on a robot better captures reality (since physics simulators are far from perfect), data collection is difficult and time-consuming. 
+Pinto et al collected, at the time, a record amount of data at 50k data points of grasps collected across 700 robot hours~\cite{pinto2016supersizing}.
+Levine et al later collected 800,000 grasp attempts over a two month period, using between six and fourteen robot arms at once~\cite{levine2016learning}. 
+While these approaches allowed them to train a CNN without over fitting or simulation data, such data collection is not always practical and require a huge amount of engineering effort. 
+Bousmalis showed how to augment a smaller amount of real data with simulation to improve accuracy, thus attempting to combine the merits of both~\cite{bousmalis2017using}. 
+
+While most of this work focuses on using color (RGB) or depth (RGBD) images~\cite{lenz2015deep}, there is growing interest in using tactile feedback, inspired by how humans feel as they grasp. 
+Calandra et al combines vision and touch sensing to build a visuo-tactile CNN that predicts grasp outcomes from a combination of the modalities~\cite{calandra2017feeling}. 
+This can go one step further in using tactile feedback to learn how to readjust while grasping~\cite{chebotar2016self}. 
+
+Dex Net 2.0 is the seccond of three pieces of research. 
+Dex Net 1.0 solves the same grasping problem, but uses a multi-armed bandit model to correlate the rewards of a proposed grasp with previously seen grasps. ~\cite{mahler2016dex}
+The similarity metric between grasps is learned from a Multi-View CNN. using suction~\cite{mahler2017suction}. 
+
+\begin{comment}
 BigBird is "a high-quality, large-scale dataset of 3D object instances, with accurate calibration information for every image. We anticipate that “solving” this dataset will effectively remove many perception-related problems for mobile, sensing-based robots."~\cite{singh2014bigbird} 
 
 Grasp detection algorithm for cluttered environments. Generate grasp hypothesis, develop description. Sample a bunch of these and then do binary classification task using a 4-layer CNN. Use big bird~\cite{pas2017grasp}
@@ -33,8 +58,6 @@ Dex Net 3.0 uses suction instead, with CNN\cite{mahler2017suction}.
 Hard to collect real robot data. Want to use simulation but simulation doesnt model world precisely. We study how randomized simulated environments and domain adaptation methods can be extended to train a grasping system to grasp novel objects from raw monocular RGB images. (improve accuracy with good simulation and first to use monocular rgb)~\cite{bousmalis2017using}
 
 
-This paper takes advantage of new development in non-linear optimization and formulates the problem of grasp synthesis as a single constrained optimization problem, generating grasps that are at the same time feasible for the hand’s kinematics and optimal according to a force related quality measure.~\cite{el2012bridging}
-
 This paper presents a new method for paralleljaw grasping of isolated objects from depth images, under large gripper pose uncertainty. Whilst most approaches aim to predict the single best grasp pose from an image, our method first predicts a score for every possible grasp pose, which we denote the grasp function. To learn this function, we train a Convolutional Neural Network which takes as input a single depth image of an object, and outputs a score for each grasp pose across the image. Training data for this is generated by use of physics simulation and depth image simulation with 3D object meshes. rhnote{Use same structure as alexnet}~\cite{johns2016deep}
 
 novel approach to multi-fingered grasp planning leveraging learned deep neural network models. We train a convolutional neural network to predict grasp success as a function of both visual information of an object and grasp configuration. We can then formulate grasp planning as inferring the grasp configuration which maximizes the probability of grasp success~\cite{luplanning}
@@ -46,5 +69,4 @@ for detecting the palm and fingertip positions of stable grasps
 directly from partial object views. multi-finger. model is learning grasp quality metrics. Deep Model with local contrast normalization (LCN), 5 convolutional layers, and 3 fully connected layers. experiment with different parameters~\cite{varley2015generating}
 
 s paper considers learning grasps in the full 6D position and orientation pose space for non-parallel-jaw grippers. We generate a database of millions of simulated successful and unsuccessful grasps for a three-fingered underactuated gripper and thousands of objects, and then learn a modified convolutional neural network (CNN) to predict grasp quality from overhead depth images of novel objects.\cite{zhou20176dof}
-
-i
+\end{comment}
