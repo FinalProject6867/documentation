@@ -1,0 +1,42 @@
+% !TEX root = main.tex
+
+\section{Problem Statement and Architectures}
+\label{sec:problem_and_archs}
+
+\rhnote{Define input and output. Say using cnn. describe software. Describe one-shot learning. then say we investigated the following changes}
+\rhnote{Currently, the input format is a 32x32x1 depth map and a 1x7 pose vector. }
+
+\begin{comment}
+\section{Research Questions}
+\label{sec:questions}
+Below we present several of the research questions we will continue to explore. 
+
+
+\subsection{Balancing Data Sets}
+As mentioned previously, Dex-Net 2.0 contains approximately 20\% positive examples. 
+This is not inherently problematic given that the training and testing sets are drawn from the same distribution, with this same ratio.
+However, by sampling subsets of our data set, we can achieve any positive-to-negative ratio and thus explore how changing this ratio effects accuracy. 
+By doing this, we avoid a model to overfit and artificially think it is doing well by predicting one class on all samples.
+(For example, a very trival way to achieve 80\% accuracy would be to predict negative for all examples.)
+
+\subsection{Data Set Size}
+The Dex-net data set contains 6.7 million data points. 
+For computational reasons, we are sampling a subset of these points. 
+However, we can vary the size of this subset to compare the trade-off between the accuracy and the size of the training set. 
+Deep learning models tend to require a rather large quantity of data depending the classification task that it is being learned and how complex the data is.
+
+For now, since the input data consists of just small 32x32x1 images and 1x7 vectors, and we learning a binary classification task, we reasoned that we could start by using a small subset of the 6.7 million data points to produce a model of reasonable performance.
+
+\subsection{Architecture Structure}
+One of the largest sources of experimentation thus far and continuing forward is our choice of architecture. 
+As our starting point, we produced an architecture that follows the concept of residual networks. 
+This model consists of instead of learning a direct mapping of the input to the output, to learn ``residue'' over this input. Subsequently, we produced another architecture that follows the Inception model.
+Both were described in \sref{sec:results} and have batch normalization after each convolution, to mitigate internal covariances shifts, as well as a dropout rate of 0.7. 
+This are initial architectures and not final. 
+As we keep training and modifying them accordingly, we will come up with the proper parameters using the validation and testing accuracy as our metric.
+
+\subsection{Normalization}
+As seen in our results, we are falling prone to overfitting. 
+Therefore, it is critical to explore how we can regularize the system. 
+
+\end{comment}
