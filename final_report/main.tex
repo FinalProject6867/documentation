@@ -57,42 +57,14 @@
 \input{related_work.tex}
 \input{data_set.tex}
 \input{problem_and_archs.tex}
+\input{results.tex}
+\input{discussion.tex}
 
-\section{Results}
-\label{sec:results}
-Use keras ~\cite{chollet2017keras}
-Andreas Network ~\cite{viereck2017learning}
+\addtolength{\textheight}{-12cm}
 
-For the following results, we use the balanced dataset with our input as the image for each data point and the 7-dimesional grasp vector. 
-During training, 80\% of the dataset was used as train set and the remaining 20\% as test set. 
-Below we describe and show the results of two achitectures, which we refer to as the Inception Network~\cite{szegedy2015going} and the ResNet.
-As discussed in \sref{sec:questions}, these are the some of the many networks we will be testing.  
-
-The inception network consists of 1 convolution layer in the beginning with 10 filters of size 3x3. 
-The output of this layer is passed in parallel to three convolutional layers of sizes 1x1, 3x3, and 5x5, each with 16 filters. 
-These outputs are concatenated on the depth dimension and passed through a max pooling layer of 3x3. 
-The outputs are flattened with global average pooling and then the pose vector is concatenated before passed to a classifier of one hidden layer of 20 units, as seen in \figref{fig:inception_net}. 
-
-The residual network consists of two convolutional layers, one with 8 filters of size 7x7 and the next with 16 filters of size 3x3.
-At this point, the output of this layer branches, such that this same output is passed through two more convolution layers of 32 filters 3x3 and 16 filters 1x1 used as dimension reduction. 
-The output of these two layers is added to their input and then passed to another convolution layer of 8 filters of 1x1 for further dimension reduction and then flattened with global average pooling. 
-Like for the other network, the pose vector is concatenated to this output before passing it to a classifier with a fully connected layer of 10 hidden units, as shown in \figref{fig:res_net}.
- 
-In \figref{fig:inception_results}, we can see that for the inception netowrk, the training loss decreases while the validation loss, while oscilating, increases. 
-The same trend is shown in \figref{fig:resnet_results} for the residual net. 
-This means that, like the results in our previous milestone, the network is overfitting to the data. 
-The final training accuracy for inception net and residual net are 70\% and 75\% respectively, while both do 50\% on the validation set. 
-One possible modification is to add regularization on the fully connected layers, or to modify the architectures by removing or adding more layers. 
-We will continue to explore this as well as experimenting with the representation of the data.
-
-    
-\begin{comment}
-\begin{figure}[t!]
-    \centering
-        \includegraphics[width=0.7\columnwidth]{figs/inception_net.png}
-    \caption{Network Structure of Inception Net} \label{fig:inception_net}
-\end{figure}
-\end{comment}
+\section*{ACKNOWLEDGMENT}
+We would like to thank the entire course staff for making this course possible and our project TA for his helpful guidance. 
+We would also like to thank Jeff Mahler and Sherdil Niyaz (a few of the authors of the DexNet 2.0 paper) for answer our questions throughout this project. 
 
 {\footnotesize
     \bibliographystyle{ieeetr}

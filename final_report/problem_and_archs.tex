@@ -5,38 +5,42 @@
 
 \rhnote{Define input and output. Say using cnn. describe software. Describe one-shot learning. then say we investigated the following changes}
 \rhnote{Currently, the input format is a 32x32x1 depth map and a 1x7 pose vector. }
-
-\begin{comment}
-\section{Research Questions}
-\label{sec:questions}
-Below we present several of the research questions we will continue to explore. 
-
+\rhnote{For the following results, we use the balanced dataset with our input as the image for each data point and the 7-dimesional grasp vector. 
+The data was split into 80\%, 10\% and 10\% for the training, validation and testing sets respectively.}
+Use keras ~\cite{chollet2017keras}
 
 \subsection{Balancing Data Sets}
+\label{sec:balance}
+
 As mentioned previously, Dex-Net 2.0 contains approximately 20\% positive examples. 
-This is not inherently problematic given that the training and testing sets are drawn from the same distribution, with this same ratio.
-However, by sampling subsets of our data set, we can achieve any positive-to-negative ratio and thus explore how changing this ratio effects accuracy. 
-By doing this, we avoid a model to overfit and artificially think it is doing well by predicting one class on all samples.
-(For example, a very trival way to achieve 80\% accuracy would be to predict negative for all examples.)
+
+\rhnote{Show what happens if we just use the 80/20 data with confusion matrix. Therefore for the rest of this we used balanced data set. Obviously this limits us because cant use all data set, so We sample}
 
 \subsection{Data Set Size}
-The Dex-net data set contains 6.7 million data points. 
-For computational reasons, we are sampling a subset of these points. 
-However, we can vary the size of this subset to compare the trade-off between the accuracy and the size of the training set. 
-Deep learning models tend to require a rather large quantity of data depending the classification task that it is being learned and how complex the data is.
+\label{sec:size}
 
-For now, since the input data consists of just small 32x32x1 images and 1x7 vectors, and we learning a binary classification task, we reasoned that we could start by using a small subset of the 6.7 million data points to produce a model of reasonable performance.
+\rhnote{To achieve desired ratio mentioned above and for computational reasons, we sample the size of points we use. We can vary this. 10k vs 50k} 
 
-\subsection{Architecture Structure}
-One of the largest sources of experimentation thus far and continuing forward is our choice of architecture. 
-As our starting point, we produced an architecture that follows the concept of residual networks. 
-This model consists of instead of learning a direct mapping of the input to the output, to learn ``residue'' over this input. Subsequently, we produced another architecture that follows the Inception model.
-Both were described in \sref{sec:results} and have batch normalization after each convolution, to mitigate internal covariances shifts, as well as a dropout rate of 0.7. 
-This are initial architectures and not final. 
-As we keep training and modifying them accordingly, we will come up with the proper parameters using the validation and testing accuracy as our metric.
+\subsection{Network Structure}
+\label{sec:archs}
+
+\rhnote{Describe each of the archs we use. Update this from before}
+
+Andreas Network ~\cite{viereck2017learning}
+
+Below we describe and show the results of two achitectures, which we refer to as the Inception Network~\cite{szegedy2015going} and the ResNet.
+
+The inception network consists of 1 convolution layer in the beginning with 10 filters of size 3x3. 
+The output of this layer is passed in parallel to three convolutional layers of sizes 1x1, 3x3, and 5x5, each with 16 filters. 
+These outputs are concatenated on the depth dimension and passed through a max pooling layer of 3x3. 
+The outputs are flattened with global average pooling and then the pose vector is concatenated before passed to a classifier of one hidden layer of 20 units, as seen in \figref{fig:inception_net}. 
+
+The residual network consists of two convolutional layers, one with 8 filters of size 7x7 and the next with 16 filters of size 3x3.
+At this point, the output of this layer branches, such that this same output is passed through two more convolution layers of 32 filters 3x3 and 16 filters 1x1 used as dimension reduction. 
+The output of these two layers is added to their input and then passed to another convolution layer of 8 filters of 1x1 for further dimension reduction and then flattened with global average pooling. 
+Like for the other network, the pose vector is concatenated to this output before passing it to a classifier with a fully connected layer of 10 hidden units, as shown in \figref{fig:res_net}.
 
 \subsection{Normalization}
-As seen in our results, we are falling prone to overfitting. 
-Therefore, it is critical to explore how we can regularize the system. 
+\label{sec:normalization}
 
-\end{comment}
+\rhnote{use l1 and l2 regularization for fully connected layers. use drop out for conv. doesnt make as much sense to use batch normalization because network is not very large}
