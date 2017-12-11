@@ -21,11 +21,8 @@ Since we are sampling our data sets, we will sample multiple copies and average 
 
 
 \begin{comment}
-The GQ-CNN takes two images as input. The first is the depth image, called the "aligned image", transformed to center and axis align according the grasp point. 
-Hence this image captures the scene and grasp in one representation. 
+The GQ-CNN takes two images as input. 
 The second image, the "z image" is untransformed and represents the distance from the gripper to the camera.
-
-Our label is given by the robust epsilon quality grasp metric (defined in~\cite{seita2016large}), which is thresholded by the value 0.002 to create binary labels.
 
 The published Dex-Net 2.0 data set contains both sets of images for each data point in addition to grasp quality metrics and the grasp, represented by a 7-dimensional vector, specifying details of the grasp center, angle, object center and gripper width and several over parameters. 
 

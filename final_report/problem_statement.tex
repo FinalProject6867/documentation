@@ -1,0 +1,19 @@
+% !TEX root = main.tex
+
+\section{Problem Statement}
+\label{sec:problem}
+
+We now formally define our learning problem. 
+We take as input a 32x32x1 depth image and \rhnote{hand vector?}. 
+
+The depth image, called the "aligned image", transformed to center and axis align according the grasp point. 
+Hence this image captures the scene and grasp in one representation. 
+An example depth image in shown in \figref{fig:depth_image}. \rhnote{add image}. 
+We are solving a binary classification problem and hence the output of our network will be 0 or 1 labels. 
+A positive label refers to a grasp predicted to be successful and a negative label is a predicted grasp failure. 
+Our label in the data set is given by the robust epsilon quality grasp metric (defined in~\cite{seita2016large}), which is thresholded by the value 0.002 to create binary labels.
+
+We split our data into into 80\%, 10\% and 10\% for the training, validation and testing sets respectively.
+We measure success by the percentage of correct labels for each set. 
+
+For training we use Keras, an open source neural network library~\cite{chollet2017keras}, that is powered by TensorFlow~\cite{abadi2016tensorflow}. 

@@ -1,0 +1,16 @@
+% !TEX root = main.tex
+
+\section{Balancing Data Sets}
+\label{sec:balance}
+
+As mentioned previously, Dex-Net 2.0 contains approximately 20\% positive examples. 
+Na{\"i}vely, you could predict a negative label for all instances and be correct 80\% of the time. Interesting, the paper reported an 85.7\% accuracy, which does slightly better than an all negative classifier. 
+
+To investigate this, we begin by using the \rhnote{pretrained dex net network} on the data sets we created by sampling the entire Dex Net data base. 
+If we constrain our sampling to produce a data set of 10,000 samples that is 50\% positive examples and 50\% negative examples (referred to as a "balanced" data set) \rhnote{results}. 
+If we do not make such a constraint and sample randomly, we expect to have the original distribution: 20\% positive examples and 80\% negative examples (referred to as an "unbalanced" data set). 
+For this data set, \rhnote{results}. 
+
+To confirm our thoughts a step further \rhnote{We use the data they provide on the network they provide}. \rhnote{results}. 
+
+\rhnote{based on this we tried different networks to improve this result.}

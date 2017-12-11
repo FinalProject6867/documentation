@@ -1,0 +1,28 @@
+% !TEX root = main.tex
+
+\section{Testing Architectures}
+\label{sec:archs}
+
+\rhnote{doing anything with number of data points 10k vs 50k}
+
+\rhnote{To try to improve we try the following other networks. Describe each of the archs we use. Show results in description.  Update this from before}
+
+\rhnote{For each one talk about normalization? use l1 and l2 regularization for fully connected layers. use drop out for conv. doesnt make as much sense to use batch normalization because network is not very large}
+
+\subsection{Inception Net}
+Inception Network~\cite{szegedy2015going}
+
+The inception network consists of 1 convolution layer in the beginning with 10 filters of size 3x3. 
+The output of this layer is passed in parallel to three convolutional layers of sizes 1x1, 3x3, and 5x5, each with 16 filters. 
+These outputs are concatenated on the depth dimension and passed through a max pooling layer of 3x3. 
+The outputs are flattened with global average pooling and then the pose vector is concatenated before passed to a classifier of one hidden layer of 20 units, as seen in \figref{fig:inception_net}. 
+
+\subsection{Res Net}
+
+The residual network consists of two convolutional layers, one with 8 filters of size 7x7 and the next with 16 filters of size 3x3.
+At this point, the output of this layer branches, such that this same output is passed through two more convolution layers of 32 filters 3x3 and 16 filters 1x1 used as dimension reduction. 
+The output of these two layers is added to their input and then passed to another convolution layer of 8 filters of 1x1 for further dimension reduction and then flattened with global average pooling. 
+Like for the other network, the pose vector is concatenated to this output before passing it to a classifier with a fully connected layer of 10 hidden units, as shown in \figref{fig:res_net}.
+
+\subsection{Andreas Net}
+Andreas Network ~\cite{viereck2017learning}
