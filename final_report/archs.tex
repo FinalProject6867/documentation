@@ -4,13 +4,15 @@
 \label{sec:archs}
 
 We experimented with three types of network architectures, which we call "Inception Net", "Res Net", "Andreas Net". 
+Each of these networks are inspired by previous work, but were adapted by us to fit our task. 
 For each architecture we will describe their structure, the normalization techniques we applied and the results. 
  
-\rhnote{mention that for each network we developed a variant to solve our problem}
-\rhnote{how many data points did we use?}
 \rhnote{What activation functions did we use}
 
 \rhnote{For normalization we mainly used $L_{1}$ or $L_{2}$ regularization for the fully connected layers and dropout and batch normalization on the convolutional layers.}
+
+For each network we plot the accuracy and loss across epochs for the training and validation set and report the final accuracy on the test set. 
+For all of the following results we used 50,000 data points (split into 80\%/10\%/10\% for training, validation and testing) from our balanced data set. 
 
 \rhnote{Give summary of how these did}
 
@@ -22,7 +24,6 @@ For each architecture we will describe their structure, the normalization techni
 \end{figure}
 
 The first network architecture we will explore is the Inception Network~\cite{szegedy2015going}, visualized in \figref{fig:inception_net}. 
-\rhnote{Any intro about this network (ie from the original paper}
 This network style was originally designed to increase the depth and width of a network while keeping computational load the same while operating on ImageNet~\cite{deng2009imagenet}. 
 
 The inception network begins with 1 convolution layer in the beginning with 10 filters of size 3x3. 
@@ -31,17 +32,21 @@ These outputs are concatenated on the depth dimension and passed through a max p
 We apply batch normalization and a dropout of \rhnote{k\%}. 
 The outputs are flattened with global average pooling and then the $z$ value is concatenated before passed to a classifier of one hidden layer of 20 units \rhnote{two FC?}. 
 
-\rhnote{INPUT RESULTS}
+\rhnote{INPUT WHAT WE TRIED}
+Our accuracy and loss are shown in \figref{fig:inceptionnet_results}. 
+While our training accuracy quickly reaches 70\%, our validation accuracy only rarely spikes above nominal 50\%. 
+This poor learning is reflected in the plot of our loss function (\figref{fig:loss_inception}) for our validation set, which never stabilizes. 
+Our final accuracy on our training set was 50\%, which, is unimpressive given a binary classification task on a balanced data set. 
 
 \begin{figure*}[t!]
     \centering
     \begin{subfigure}[t]{0.49\textwidth}
         \includegraphics[width=0.9\columnwidth]{figs/inception_accuracy.pdf}
-        \caption{Accuracy} \label{fig:accuracy}
+        \caption{Accuracy of Inception Net} \label{fig:accuracy}
         \end{subfigure}
     \begin{subfigure}[t]{0.49\textwidth}
         \includegraphics[width=0.9\columnwidth]{figs/inception_loss.pdf}
-        \caption{Loss} \label{fig:loss}
+        \caption{Loss of Inception Net} \label{fig:loss_inception}
     \end{subfigure}
 \caption{INSERT CAPTION - inception net} \label{fig:inceptionnet_results}
 \end{figure*}
@@ -62,7 +67,11 @@ After each convolutional layer, we apply batch normalization.
 
 Like for the other network, the $z$ value is concatenated to this output before passing it to a classifier with a fully connected layer of 10 hidden units.
 
-\rhnote{insert results}
+\rhnote{insert what we tried}
+Our accuracy and loss are shown in \figref{fig:resnet_results}. 
+Our training accuracy nears 80\% and our validation accuracy varies between 50\% and 70\%, depending on when we stop our network. 
+This stopping criteria is reflected in our loss graph, which also fluctuates for our validation set. 
+Like Inception Net, our final test accuracy is 50\%. 
 
 \begin{figure*}[t!]
     \centering
@@ -92,12 +101,17 @@ Thus their CNN learns the distance to the nearest grasp function used by the con
 Despite its original use as a regression network, we adapt it to our classification task. 
 
 The depth image is passed through one convolutional layer, with 8 filters of size 7x7, and then a max-pooling layer. 
-The z-value is passed through a full connected layer and then is tiled.
+The z-value is passed through a full connected layer and then is tiled~\cite{ngiam2010tiled}.
 \rhnote{How does this work for one integer?} \rhnote{explain tiling}
 The outputs of each of these are summed before being passed through a convolutional layer with 8 filter of size 7x7 and another max pooling layer. 
 Finally, we process through two fully connected layers of size \rhnote{something}. 
 
-\rhnote{results}
+\rhnote{what we tried}
+
+Our accuracy and loss are shown in \figref{fig:andreas_results}. 
+After 30 training steps, our training and validation accuracy improve with our training accuracy near 70\% and our validation wavering between 50\% and 70\%, depending on when we stop training. 
+For both networks our loss over time shows little variance. 
+Our final test accuracy is 56\%, an improvement over Inception Net and Res Net, but still slightly worse then our re-trained version of the GQ-CNN. 
 
 \begin{figure*}[t!]
     \centering

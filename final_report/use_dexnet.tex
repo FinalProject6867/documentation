@@ -22,21 +22,25 @@
 As mentioned previously, Dex-Net 2.0 contains approximately 20\% positive examples. 
 Na{\"i}vely, you could predict a negative label for all instances and be correct 80\% of the time. Interesting, the paper reported an 85.7\% accuracy, which does slightly better than an all negative classifier. 
 
-To investigate this, we begin by using the \rhnote{pretrained dex net network} on the data sets we created by sampling the entire Dex Net data base. 
+To investigate this, we begin by using their pre-trained GQ-CNN network  on the data sets we created by sampling the entire Dex Net data base. 
 We can constrain our sampling to produce a data set of 10,000 samples that is 50\% positive examples and 50\% negative examples (referred to as a "balanced" data set). 
 Using their network we achieve approximately 50\% accuracy because, as shown in our confusion matrix in \figref{fig:balanced_confusion}, the network learns to always output a positive label. 
 
 If we do not make such a constraint and sample randomly, we expect to have the original distribution: 20\% positive examples and 80\% negative examples (referred to as an "unbalanced" data set). 
 As shown by the confusion matrix in \figref{fig:unbalanced_confusion}, the network achieved approximately 80\% accuracy by always guessing negative. 
 
-To confirm our thoughts a step further, we use the data they provide on the network they provide (\rhnote{confirm}). 
+To confirm our thoughts a step further, we use the data they provide on their pre-trained network. 
 This data set is also unbalanced and achieves similarly to above in that it always guesses negative, as seen in \figref{fig:from_paper}. 
 
-This result was initially surprising. 
-Due to the few percentage point disparity between our accuracy and theirs, we hesitate to conclusively claim their network did not learn features. 
-While we varied the size of the data set we use, we did not come close to their magnitude (in the millions) and therefore it is possible that the network simply needs a tremendous amount of data to learn effectively. 
+Considering the difference between their reported results, we became suspicious of our pre-trained network~\footnote{While we cannot eliminate the possibility that we somehow loaded their network incorrectly or made a similar software implementation bug, we believe significant reasoning and debugging that we used their network correctly.}.
+We therefore re-implemented their network in Keras, trained it using our balanced data set. 
+The results are shown in \figref{fig:gqcnn_results}. 
+After a few time steps the training and validation accuracy achieve 60\%, which is also what our test set reported. 
+The confusion matrix in \figref{fig:confusion_new_gqcnn}, shows \rhnote{insert graphic and mentioned learned something}. 
 
-To explore further, we experiment with varying the architecture of the CNN. 
+Given that the original paper reported 85\% accuracy on a data set that had approximately 80\% negative examples, our 60\% accuracy on a data set that had 50\% examples is comparable. 
+
+Hoping to improve our accuracy, we experiment with varying the architecture of the CNN. 
 This both allows us to explore the effect of the architecture (as well as its hyper-parameters) and to see if we can improve upon our accuracy rate. 
 
 \begin{figure*}[t!]
@@ -51,3 +55,7 @@ This both allows us to explore the effect of the architecture (as well as its hy
     \end{subfigure}
 \caption{INSERT CAPTION - gqcnn} \label{fig:gqcnn_results}
 \end{figure*}
+
+%This result was initially surprising. 
+%Due to the few percentage point disparity between our accuracy and theirs, we hesitate to conclusively claim their network did not learn features. 
+%While we varied the size of the data set we use, we did not come close to their magnitude (in the millions) and therefore it is possible that the network simply needs a tremendous amount of data to learn effectively. 
