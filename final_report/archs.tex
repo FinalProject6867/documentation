@@ -37,6 +37,7 @@ Our accuracy and loss are shown in \figref{fig:inceptionnet_results}.
 While our training accuracy quickly reaches 70\%, our validation accuracy only rarely spikes above nominal 50\%. 
 This poor learning is reflected in the plot of our loss function (\figref{fig:loss_inception}) for our validation set, which never stabilizes. 
 Our final accuracy on our training set was 50\%, which, is unimpressive given a binary classification task on a balanced data set. 
+\rhnote{mention confusion}
 
 \begin{figure*}[t!]
     \centering
@@ -48,7 +49,11 @@ Our final accuracy on our training set was 50\%, which, is unimpressive given a 
         \includegraphics[width=0.9\columnwidth]{figs/inception_loss.pdf}
         \caption{Loss of Inception Net} \label{fig:loss_inception}
     \end{subfigure}
-\caption{We plot the accuracy rate and loss of the Inception Net over training epochs for the training and validation set. This network seems to overfit based off of the difference between the accuracy of the training and validation sets.} \label{fig:inceptionnet_results}
+		\begin{subfigure}[t]{0.32\textwidth}
+        \includegraphics[width=0.8\columnwidth]{figs/confusion_inception.pdf}
+        \caption{Confusion Matrix} \label{fig:confusion_res}
+    \end{subfigure}
+\caption{We plot the accuracy rate and loss of the Inception Net over training epochs for the training and validation set. This network seems to overfit based off of the difference between the accuracy of the training and validation sets. \rhnote{mention confusion}} \label{fig:inceptionnet_results}
 \end{figure*}
 
 
@@ -71,19 +76,24 @@ Like for the other network, the $z$ value is concatenated to this output before 
 Our accuracy and loss are shown in \figref{fig:resnet_results}. 
 Our training accuracy nears 80\% and our validation accuracy varies between 50\% and 70\%, depending on when we stop our network. 
 This stopping criteria is reflected in our loss graph, which also fluctuates for our validation set. 
-Like Inception Net, our final test accuracy is 50\%. 
+Doing slightly worse then Inception Net, our final test accuracy is 48\%. 
+\rhnote{mention confusion matrix}
 
 \begin{figure*}[t!]
     \centering
-    \begin{subfigure}[t]{0.49\textwidth}
+    \begin{subfigure}[t]{0.32\textwidth}
         \includegraphics[width=0.9\columnwidth]{figs/res_net_accuracy.pdf}
-        \caption{Accuracy} \label{fig:accuracy}
+        \caption{Accuracy} \label{fig:accuracy_res}
         \end{subfigure}
-    \begin{subfigure}[t]{0.49\textwidth}
+    \begin{subfigure}[t]{0.32\textwidth}
         \includegraphics[width=0.9\columnwidth]{figs/res_net_loss.pdf}
-        \caption{Loss} \label{fig:loss}
+        \caption{Loss} \label{fig:loss_res}
     \end{subfigure}
-\caption{We plot the accuracy rate and loss of the Res Net over training epochs for the training and validation set. There is still overfitting in this network, there is odd oscillation of the validation accuracy.} \label{fig:resnet_results}
+		\begin{subfigure}[t]{0.32\textwidth}
+        \includegraphics[width=0.8\columnwidth]{figs/confusion_res.pdf}
+        \caption{Confusion Matrix} \label{fig:confusion_res}
+    \end{subfigure}
+\caption{We plot the accuracy rate and loss of the Res Net over training epochs for the training and validation set. There is still overfitting in this network, there is odd oscillation of the validation accuracy. \rhnote{mention confusion matrix}}} \label{fig:resnet_results}
 \end{figure*}
 
 \subsection{Andreas Net}
