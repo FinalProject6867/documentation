@@ -4,9 +4,9 @@
 \label{sec:problem}
 
 We now formally define our learning problem. 
-We take as input a 32x32x1 depth image and \rhnote{hand vector?}. 
+We take as input a 32x32x1 depth image and the distance between the gripper and the camera (referred to as the $z$ value). 
 
-The depth image, called the "aligned image", transformed to center and axis align according the grasp point. 
+The depth image, called the "aligned image", is transformed to be centered and axis aligned according the grasp point. 
 Hence this image captures the scene and grasp in one representation. 
 An example depth image in shown in \figref{fig:depth_image}. 
 We are solving a binary classification problem and hence the output of our network will be 0 or 1 labels. 

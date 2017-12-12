@@ -3,5 +3,25 @@
 \section{Discussion}
 \label{sec:discussion}
 
-\rhnote{Conclusion and final thoughts}
-\rhnote{to learn better might need more descriptive input. maybe depth image is not enough. maybe need color image. use color image~\cite{zeng2017robotic} to determine grasp points. }
+The goal of this project was to use modified depth images to perform binary classification whether a grasp would succeed, as measured by a grasp stability metric. 
+We leveraged the recently published Dex Net 2.0 data base by sampling data points~\cite{mahler2017dex}. 
+
+We began by learning using the Dex Net framework, their GQ-CNN, with various input sampling techniques. 
+Given the unsatisfactory performance we next experimented with three architectures: Inception Net, Res Net and Andreas Net. 
+
+Overall, we did not achieve the accuracy we were hoping for. 
+Taking a step back, we hypothesize three possible reasons. 
+The first is that, although we tried various networks, we did not find the best possible network or combination of hyperparameters. 
+To investigate this, we would continue experimenting with architectures. 
+
+Our second guess is that we did not train our network with enough data. 
+For computational reasons, we sampled sets from the large Dex Net database and thus trained on a much smaller set. 
+The key to this kind of learning is large quantities of data, so is possible our issues would be alleviated by training on larger sets. 
+
+Our third possible reason relates to the nature of the data set. 
+Considering we did not create the data set, editing it in a significant way was outside of our control. 
+It is possible that the depth image and distance is not sufficiently powerful enough representation to learn grasp stability. 
+Several other grasp learning algorithms leverage a color input, since color can often characterize objects~\cite{zeng2017robotic}.  
+While we attempted to access a data set with color images, the repository was not usable in its published form (it referenced data that was not publicly accessible) and the authors of the repository did not reply to our several inquires. 
+
+Our learning objective is a hotly published research area and much of the work we reference is extremely recent (i.e. Dex Net 2.0 was presented in July of this year and Andreas Net was published to Arvix less than a month ago). \rhnote{some conclusion sentence!}
