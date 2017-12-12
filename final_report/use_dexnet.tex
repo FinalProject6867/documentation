@@ -16,7 +16,7 @@
     \begin{subfigure}[t]{0.24\textwidth}
         \includegraphics[width=0.9\columnwidth]{figs/paper_original.pdf} \caption{Replicated Paper Results} \label{fig:from_paper}
     \end{subfigure}
-\caption{FILL IN CAPTION} \label{fig:confusion_matrices}
+\caption{The far left panel shows a depth image that serves as input to our network. The three panels on the right show the confusion matrices for various data set learned using the pre-trained GQ-CNN network. In each case the network simply outputs, for every new instance, the label of of the largest classes. } \label{fig:confusion_matrices}
 \end{figure*}
 
 As mentioned previously, Dex-Net 2.0 contains approximately 20\% positive examples. 
@@ -59,7 +59,7 @@ This both allows us to explore the effect of the architecture (as well as its hy
         \includegraphics[width=0.8\columnwidth]{figs/trained_gqcnn.pdf}
         \caption{Confusion Matrix} \label{fig:confusion_qgcnn}
     \end{subfigure}
-\caption{INSERT CAPTION - gqcnn} \label{fig:gqcnn_results}
+\caption{After re-creating and re-training the GQ-CNN network with our balanced data set, we achieve the accuracy and loss shown above on our training and validation sets. We also show the confusion matrix, as compared to the earlier results.} \label{fig:gqcnn_results}
 \end{figure*}
 
 %This result was initially surprising. 

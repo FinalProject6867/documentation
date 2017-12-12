@@ -20,7 +20,7 @@ For all of the following results we used 50,000 data points (split into 80\%/10\
 
 \begin{figure}[t!]
     \includegraphics[width=0.99\columnwidth]{figs/inception_net.png}
-\caption{Inception Net Architecture} \label{fig:inception_net}
+\caption{Inception Net Architecture. We provide the following labels: Convolution (Conv), Batch Normalization (BN), Concatenate (Concat), Dropout (Drop), Global Average Pooling (GAP), Fully Connected (FC).} \label{fig:inception_net}
 \end{figure}
 
 The first network architecture we will explore is the Inception Network~\cite{szegedy2015going}, visualized in \figref{fig:inception_net}. 
@@ -48,7 +48,7 @@ Our final accuracy on our training set was 50\%, which, is unimpressive given a 
         \includegraphics[width=0.9\columnwidth]{figs/inception_loss.pdf}
         \caption{Loss of Inception Net} \label{fig:loss_inception}
     \end{subfigure}
-\caption{INSERT CAPTION - inception net} \label{fig:inceptionnet_results}
+\caption{We plot the accuracy rate and loss of the Inception Net over training epochs for the training and validation set. This network seems to overfit based off of the difference between the accuracy of the training and validation sets.} \label{fig:inceptionnet_results}
 \end{figure*}
 
 
@@ -56,7 +56,7 @@ Our final accuracy on our training set was 50\%, which, is unimpressive given a 
 
 \begin{figure}[t!]
     \includegraphics[width=0.99\columnwidth]{figs/res_net.png}
-\caption{Res-Net Architecture} \label{fig:res_net}
+\caption{Res-Net Architecture. We provide the following labels: Convolution (Conv), Batch Normalization (BN), Add (Add), Global Average Pooling (GAP), Fully Connected (FC).} \label{fig:res_net}
 \end{figure}
 
 Our residual network (called "Res Net" in this discussion) is visualized in \figref{fig:res_net}. 
@@ -83,14 +83,14 @@ Like Inception Net, our final test accuracy is 50\%.
         \includegraphics[width=0.9\columnwidth]{figs/res_net_loss.pdf}
         \caption{Loss} \label{fig:loss}
     \end{subfigure}
-\caption{INSERT CAPTION - ResNet} \label{fig:resnet_results}
+\caption{We plot the accuracy rate and loss of the Res Net over training epochs for the training and validation set. There is still overfitting in this network, there is odd oscillation of the validation accuracy.} \label{fig:resnet_results}
 \end{figure*}
 
 \subsection{Andreas Net}
 
 \begin{figure}[t!]
     \includegraphics[width=0.99\columnwidth]{figs/andreas_net.png}
-\caption{Andreas Net Architecture} \label{fig:andreas_net}
+\caption{Andreas Net Architecture. We provide the following labels: Convolution (Conv), Rectified Linear Unit (ReLu), Max-Pooling (Max-Pool),  Fully Connected (FC), Tiling (Tile), Sum (Sum), Fully Connected (FC).} \label{fig:andreas_net}
 \end{figure}
 
 The last architecture we consider is from~\cite{viereck2017learning} and will be referred to as "Andreas Net". 
@@ -123,5 +123,5 @@ Our final test accuracy is 56\%, an improvement over Inception Net and Res Net, 
         \includegraphics[width=0.9\columnwidth]{figs/andreas_loss.pdf}
         \caption{Loss} \label{fig:loss}
     \end{subfigure}
-\caption{INSERT CAPTION - Andreas Net} \label{fig:andreas_results}
+\caption{We plot the accuracy rate and loss of the Andreas Net over training epochs for the training and validation set. Of our new networks this performs the best, although its validation accuracy also oscillates.} \label{fig:andreas_results}
 \end{figure*}
