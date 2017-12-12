@@ -20,7 +20,10 @@ For our data set we will use the Dexerity Network (DexNet) 2.0 data set, present
 The data set has 6.7 million grasps definitions, images and analytical grasp metrics, that we further detailed in \sref{sec:data_set}. 
 The authors of the data set trained a Grasp Quality Convolutional Neural Network (GQ-CNN), which achieved 85.7\% accuracy on their classification task.
 
-Using their network, on both our sampled data and their provided data, we were unable to achieve an accuracy rate higher then the percentage of the largest class. We discuss several possible reasons. We then explore several other architectures, with varying hyper parameters and normalization methods. 
+Using their pre-trained network, on both our sampled data and their provided data, we were unable to achieve an accuracy rate higher then the percentage of the largest class. 
+We then re-train their network to achieve similar performance, but discuss the reasons why this is unsatisfactory. 
+We then explore several other architectures, with varying hyper parameters and normalization methods. 
+However, using these other architectures, we are unable to beat the accuracy rate achieved with the GQ-CNN. 
 
 \textbf{We make the following contributions}:
 \begin{enumerate}
@@ -29,8 +32,9 @@ Using their network, on both our sampled data and their provided data, we were u
 \end{enumerate}
 
 We first review related work (\sref{sec:related_work}) and further detail the data set (\sref{sec:data_set}). 
-Given our data set, we formally define our problem statement (\sref{sec:problem}) and then explore various data sets using the pre-trained GQ-CNN (\sref{sec:balance}). 
+Given our data set, we formally define our problem statement (\sref{sec:problem}) and then explore various data sets using the GQ-CNN (\sref{sec:balance}). 
 We explore other architectures (\sref{sec:archs}) and conclude with a brief discussion (\sref{sec:discussion}). 
+In particular, we discuss hypotheses on why were we unable to improve our accuracy rate and what makes this problem difficult. 
 
 \begin{figure}[t!]
     \includegraphics[width=0.99\columnwidth]{figs/dexnet.PNG}
