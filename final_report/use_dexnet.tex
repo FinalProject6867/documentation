@@ -3,6 +3,22 @@
 \section{Balancing Data Sets}
 \label{sec:balance}
 
+\begin{figure*}[t!]
+    \begin{subfigure}[t]{0.24\textwidth}
+        \includegraphics[width=0.75\columnwidth]{figs/depth_example.pdf} \caption{Example Depth Image} \label{fig:depth_image}
+        \end{subfigure}
+    \begin{subfigure}[t]{0.24\textwidth}
+        \includegraphics[width=0.9\columnwidth]{figs/balanced_results.pdf} \caption{Balanced Data} \label{fig:balanced_confusion}
+    \end{subfigure}
+		\begin{subfigure}[t]{0.24\textwidth}
+        \includegraphics[width=0.9\columnwidth]{figs/unbalanced_results.pdf} \caption{Unbalanced Data} \label{fig:unbalanced_confusion}
+        \end{subfigure}
+    \begin{subfigure}[t]{0.24\textwidth}
+        \includegraphics[width=0.9\columnwidth]{figs/paper_original.pdf} \caption{Replicated Paper Results} \label{fig:from_paper}
+    \end{subfigure}
+\caption{FILL IN CAPTION} \label{fig:confusion_matrices}
+\end{figure*}
+
 As mentioned previously, Dex-Net 2.0 contains approximately 20\% positive examples. 
 Na{\"i}vely, you could predict a negative label for all instances and be correct 80\% of the time. Interesting, the paper reported an 85.7\% accuracy, which does slightly better than an all negative classifier. 
 
@@ -24,17 +40,14 @@ To explore further, we experiment with varying the architecture of the CNN.
 This both allows us to explore the effect of the architecture (as well as its hyper-parameters) and to see if we can improve upon our accuracy rate. 
 
 \begin{figure*}[t!]
-    \begin{subfigure}[t]{0.24\textwidth}
-        \includegraphics[width=0.75\columnwidth]{figs/depth_example.pdf} \caption{Example Depth Image} \label{fig:depth_image}
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=0.9\columnwidth]{figs/gqcnn_accuracy.pdf}
+        \caption{Accuracy} \label{fig:accuracy}
         \end{subfigure}
-    \begin{subfigure}[t]{0.24\textwidth}
-        \includegraphics[width=0.9\columnwidth]{figs/balanced_results.pdf} \caption{Balanced Data} \label{fig:balanced_confusion}
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=0.9\columnwidth]{figs/gqcnn_loss.pdf}
+        \caption{Loss} \label{fig:loss}
     \end{subfigure}
-		\begin{subfigure}[t]{0.24\textwidth}
-        \includegraphics[width=0.9\columnwidth]{figs/unbalanced_results.pdf} \caption{Unbalanced Data} \label{fig:unbalanced_confusion}
-        \end{subfigure}
-    \begin{subfigure}[t]{0.24\textwidth}
-        \includegraphics[width=0.9\columnwidth]{figs/paper_original.pdf} \caption{Replicated Paper Results} \label{fig:from_paper}
-    \end{subfigure}
-\caption{FILL IN CAPTION} \label{fig:confusion_matrices}
+\caption{INSERT CAPTION - gqcnn} \label{fig:gqcnn_results}
 \end{figure*}

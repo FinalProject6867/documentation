@@ -6,6 +6,7 @@
 We experimented with three types of network architectures, which we call "Inception Net", "Res Net", "Andreas Net". 
 For each architecture we will describe their structure, the normalization techniques we applied and the results. 
  
+\rhnote{mention that for each network we developed a variant to solve our problem}
 \rhnote{how many data points did we use?}
 \rhnote{What activation functions did we use}
 
@@ -14,6 +15,12 @@ For each architecture we will describe their structure, the normalization techni
 \rhnote{Give summary of how these did}
 
 \subsection{Inception Net}
+
+\begin{figure}[t!]
+    \includegraphics[width=0.99\columnwidth]{figs/inception_net.png}
+\caption{Inception Net Architecture} \label{fig:inception_net}
+\end{figure}
+
 The first network architecture we will explore is the Inception Network~\cite{szegedy2015going}, visualized in \figref{fig:inception_net}. 
 \rhnote{Any intro about this network (ie from the original paper}
 This network style was originally designed to increase the depth and width of a network while keeping computational load the same while operating on ImageNet~\cite{deng2009imagenet}. 
@@ -26,13 +33,26 @@ The outputs are flattened with global average pooling and then the $z$ value is 
 
 \rhnote{INPUT RESULTS}
 
-\begin{figure}[t!]
-    \includegraphics[width=0.99\columnwidth]{figs/inception_net.png}
-\caption{Inception Net Architecture} \label{fig:inception_net}
-\end{figure}
+\begin{figure*}[t!]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=0.9\columnwidth]{figs/inception_accuracy.pdf}
+        \caption{Accuracy} \label{fig:accuracy}
+        \end{subfigure}
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=0.9\columnwidth]{figs/inception_loss.pdf}
+        \caption{Loss} \label{fig:loss}
+    \end{subfigure}
+\caption{INSERT CAPTION - inception net} \label{fig:inceptionnet_results}
+\end{figure*}
 
 
 \subsection{Res Net}
+
+\begin{figure}[t!]
+    \includegraphics[width=0.99\columnwidth]{figs/res_net.png}
+\caption{Res-Net Architecture} \label{fig:res_net}
+\end{figure}
 
 Our residual network (called "Res Net" in this discussion) is visualized in \figref{fig:res_net}. 
 It consists of one convolutional layer, with 8 filters of size 7x7.
@@ -44,12 +64,26 @@ Like for the other network, the $z$ value is concatenated to this output before 
 
 \rhnote{insert results}
 
-\begin{figure}[t!]
-    \includegraphics[width=0.99\columnwidth]{figs/res_net.png}
-\caption{Res-Net Architecture} \label{fig:res_net}
-\end{figure}
+\begin{figure*}[t!]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=0.9\columnwidth]{figs/res_net_accuracy.pdf}
+        \caption{Accuracy} \label{fig:accuracy}
+        \end{subfigure}
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=0.9\columnwidth]{figs/res_net_loss.pdf}
+        \caption{Loss} \label{fig:loss}
+    \end{subfigure}
+\caption{INSERT CAPTION - ResNet} \label{fig:resnet_results}
+\end{figure*}
 
 \subsection{Andreas Net}
+
+\begin{figure}[t!]
+    \includegraphics[width=0.99\columnwidth]{figs/andreas_net.png}
+\caption{Andreas Net Architecture} \label{fig:andreas_net}
+\end{figure}
+
 The last architecture we consider is from~\cite{viereck2017learning} and will be referred to as "Andreas Net". 
 It is visualized in \figref{fig:andreas_net}. 
 The network, like GQ-CNN, was designed for robotics grasping and uses depth images as input. 
@@ -65,7 +99,15 @@ Finally, we process through two fully connected layers of size \rhnote{something
 
 \rhnote{results}
 
-\begin{figure}[t!]
-    \includegraphics[width=0.99\columnwidth]{figs/andreas_net.png}
-\caption{Andreas Net Architecture} \label{fig:andreas_net}
-\end{figure}
+\begin{figure*}[t!]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=0.9\columnwidth]{figs/andreas_accuracy.pdf}
+        \caption{Accuracy} \label{fig:accuracy}
+        \end{subfigure}
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=0.9\columnwidth]{figs/andreas_loss.pdf}
+        \caption{Loss} \label{fig:loss}
+    \end{subfigure}
+\caption{INSERT CAPTION - Andreas Net} \label{fig:andreas_results}
+\end{figure*}
