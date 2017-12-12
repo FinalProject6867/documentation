@@ -2,12 +2,13 @@
 
 \section{Discussion}
 \label{sec:discussion}
+\rhnote{mention gqcnn generalized better}
 
 The goal of this project was to use modified depth images to perform binary classification whether a grasp would succeed, as measured by a grasp stability metric. 
 We leveraged the recently published Dex Net 2.0 data base by sampling data points~\cite{mahler2017dex}. 
 
 We began by learning using the Dex Net framework, their GQ-CNN, with various input sampling techniques. 
-Given the unsatisfactory performance we next experimented with three architectures: Inception Net, Res Net and Andreas Net. 
+Aiming for better performance we next experimented with three architectures: Inception Net, Res Net and Andreas Net. 
 
 Overall, we did not achieve the accuracy we were hoping for. 
 Taking a step back, we hypothesize three possible reasons. 
@@ -17,6 +18,7 @@ To investigate this, we would continue experimenting with architectures.
 Our second guess is that we did not train our network with enough data. 
 For computational reasons, we sampled sets from the large Dex Net database and thus trained on a much smaller set. 
 The key to this kind of learning is large quantities of data, so is possible our issues would be alleviated by training on larger sets. 
+While we were able to achieve comparable performance (on a re-scaled data set), the GQ-CNN is reported to have 4.5 million trainable parameters, which means that we had many more parameters then data points. 
 
 Our third possible reason relates to the nature of the data set. 
 Considering we did not create the data set, editing it in a significant way was outside of our control. 
