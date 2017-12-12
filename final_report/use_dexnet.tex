@@ -34,9 +34,20 @@ This data set is also unbalanced and achieves similarly to above in that it alwa
 
 Considering the difference between their reported results, we became suspicious of our pre-trained network~\footnote{While we cannot eliminate the possibility that we somehow loaded their network incorrectly or made a similar software implementation bug, we believe significant reasoning and debugging that we used their network correctly.}.
 We therefore re-implemented their network in Keras, trained it using our balanced data set. 
-The results are shown in \figref{fig:gqcnn_results}. 
+
+Borrowing from the original paper, the network is visualized in \figref{fig:dexnet_network}. 
+We briefly summarize the network structure here. 
+The depth image is passed through two convolutional layers following by ReLu activation, where the convolution layers both have 64 filters and have sizes 7x7 and 5x5 respectively. 
+This is followed by a max-pooling layer of size 2x2 and stride 1x1. 
+This output is then passed through two more convolutional layers, where the first is following by ReLu activation, where the convolution layers both have 64 filters of size 3x3. 
+We flatten this output is connect it to 1024 hidden units that are activated by a ReLu. 
+The z component is connected to 20 hidden units that are activated by a ReLu and concatenated onto the result above. 
+This is connected to 1024 hidden units activated by ReLU, followed by 2 hidden units. 
+The softmax function is applied to give the output. 
+
+The results from reimplemented and training GQ-CNN are shown in \figref{fig:gqcnn_results}. 
 After a few time steps the training and validation accuracy achieve 60\%, which is also what our test set reported. 
-The confusion matrix in \figref{fig:confusion_new_gqcnn}, shows our improved accuracy and that we tend to over-predict positive labels. 
+The confusion matrix in \figref{fig:confusion_gqcnn}, shows our improved accuracy and that we tend to over-predict positive labels. 
 As a quick note, this false positive tendency is actually more problematic for robots then false negatives, since the robot will spend time executing a grasp that is likely to fail. 
 
 Given that the original paper reported 85\% accuracy on a data set that had approximately 80\% negative examples, our 60\% accuracy on a data set that had 50\% examples is comparable. 
