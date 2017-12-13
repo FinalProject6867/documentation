@@ -66,6 +66,13 @@ Our final accuracy on our training set was 50\%, which, is unimpressive given a 
 Looking at our confusion matrix in \figref{fig:confusion_inception}, our network almost always predicted failure. 
 While from a robotic execution perspective this means we are unlikely to execute a failure-likely grasp, the over-prediction of failure also means we are unlikely to execute any grasp. 
 
+For tuning this network, we tried using a larger number of filters at each step, testing with 64, 32 and 20 filters. 
+However, the initial loss of the network was very high, and it would not decrease substantially or at all during training. Likewise, max pooling of 2x2 was tested, however this did not bring any benefits to the training either. 
+An extra inception "layer" was added after the dropout, however this also resulted in unusually high losses. 
+It is worth noting that because dimensions of our data is small, it was not feasible to add many layers. 
+We selected a high dropout rate in order to let the network "learn" which of the mappings learned better features and thus was not modified during the experiments. 
+As for the $z$ input, a fully connected layer of 16 units was tried, but it did not have much effect on our validation accuracy. 
+
 
 \subsection{Res Net}
 
@@ -92,6 +99,12 @@ This stopping criteria is reflected in our loss graph, which also fluctuates for
 Doing slightly worse then Inception Net, our final test accuracy is 48\%. 
 Looking at our confusion matrix, our learning algorithm over predicted success, in stark contrast to our Inception Net. 
 In practice, given the large quantity of false positives, our robot would execute many grasps that are likely to fail, wasting time and resources. 
+
+For tuning this network, we also tried increasing the number of filters to 64 and 30, and the kernel sizes where permuted (switched around layers). 
+However, the model did not do any better or worse than the set of hyper-parameters described above. 
+While we experimented with adding a convolution layer to the identity path in the Res Net of 32 filters and kernel size of 5x5, this was not successful since the network never escaped from the 50\% accuracy. 
+We also tried using $L_{1}$ regularization on the fully connected layers in the reported architecture. 
+However this increased significantly the initial loss and it did not help with the final validation accuracy.
 
 \begin{figure*}[t!]
     \centering
@@ -129,6 +142,8 @@ This output is activated by a Leaky ReLu with slope 0.3 before a batch normaliza
 We pass this to a max-pooling layer of size 2x2 and stride 1x1. 
 The z-value is passed through a full connected layer of 20 units with $L_{1}$ regularization of $\lambda=0.1$.
 We pass this through Leaky ReLu, again with slope 0.3, and then tile the output~\cite{ngiam2010tiled}.
+The tile operation consists of taking the 1-D vector of 20 elements and, for each scalar, a 14x14 "feature map" is formed by repeating this scalar. 
+The output is 20 14x14 "feature maps" are added channel-wise to each of the outputs of one of the convolutional layers.
 The outputs of each of these, the processed depth image and processed z-value, are summed.
 
 This result is passed through convolutional layer with 50 filter of size 5x5, followed by Leaky ReLu, with slope 0.3. 
@@ -141,6 +156,19 @@ Our accuracy and loss are shown in \figref{fig:andreas_results}.
 After 30 training steps, our training and validation accuracy improve with our training accuracy near 70\% and our validation wavering between 50\% and 70\%, depending on when we stop training. 
 For both networks our loss over time shows little variance. 
 Our final test accuracy is 56\%, an improvement over Inception Net and Res Net, but still slightly worse then our re-trained version of the GQ-CNN. 
+
+In developing the network, we first tried the original "Andreas Net" (i.e described in ~\cite{viereck2017learning}), without dropout. 
+This did not perform better than random classification. 
+However, the introduction of the dropout increased the the final test accuracy to 56\%. 
+We also replaced the Leaky ReLU functions with normal ReLU functions, but this decreased the accuracy back to 50\%. 
+An additional layer of 50 filters and kernel size of 5x5 was added before the flattening operation, therefore essentially reducing the feature maps to 1x1.  
+This did not lead to good generalization. 
+
+As an alternative to the flatten operation, a global average pooling operation was tested instead. 
+While this operation has been successfully used in other object detection networks, it did not seem to add much to our network and thus we continued to use the flatten operation. 
+For the $L_{1}$ regularization factor, in addition to 0.1 we also tried 0.01 and 0.3, to see whether decreasing or increasing the regularization would affect the final accuracy. 
+However, even when changing slightly this factor, we saw high initial loss even after 50 epochs and the network performance was quite poor. 
+
 
 \begin{figure*}[t!]
     \centering
