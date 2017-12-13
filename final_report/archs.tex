@@ -10,6 +10,11 @@ For each architecture we will describe their structure, the normalization techni
 For normalization techniques we applied $L_{1}$ regularization on the fully connected layers, batch normalization on the convolutional layer, and dropout. 
 For Inception Net and Res Net, our activation function is the Rectified Linear Unit (ReLu), $f(x) = \max(0, x)$. 
 For Andreas Net, our activation function is the Leaky Rectified Linear Unit, $f(x) = \max(a, ax)$ where $a$ is referred to as the slope. 
+We obtain all of our outputs using the soft-max function over 2 units. 
+We predict the class with higher probability, giving us a binary output. 
+
+For each network, we experimented with various normalization constants, network hyper-parameters (i.e. pool size), slopes, etc. 
+Within this paper we report only on the best combination of parameters. 
 
 For each network we plot the accuracy and loss across epochs for the training and validation set and report the final accuracy on the test set. 
 We also, for most networks, show the confusion matrix.
@@ -24,26 +29,6 @@ We can rank the networks from worst to best by accuracy: Res Net, Inception Net,
     \includegraphics[width=0.99\columnwidth]{figs/inception_net.png}
 \caption{Inception Net Architecture. We provide the following labels: Convolution (Conv), Batch Normalization (BN), ReLU (Rectifer Linear Unit), Concatenate (Concat), Dropout (Drop), Global Average Pooling (GAP), Fully Connected (FC), SoftMax (SM).} \label{fig:inception_net}
 \end{figure}
-
-The first network architecture we will explore is the Inception Network~\cite{szegedy2015going}, visualized in \figref{fig:inception_net}. 
-This network style was originally designed to increase the depth and width of a network while keeping computational load the same while operating on ImageNet~\cite{deng2009imagenet}. 
-
-The inception network begins with 1 convolution layer in the beginning with 10 filters of size 3x3. 
-We apply batch normalization to the output of this layer at ReLU as the activation function. 
-We then pass that to three parallel convolutional layers of sizes 1x1, 3x3, and 5x5, each with 16 filters. 
-These outputs are concatenated on the depth dimension and passed through a max pooling layer of size 3x3 and stride 1x1.
-We apply batch normalization, ReLu activation and a dropout of 70\%. 
-The outputs are flattened with global average pooling and then the $z$ value is concatenated on. 
-We then pass through two fully connected units of size 25 and 2 respectively.  
-We apply the softmax function to these final two units to obtain our output for binary classification.
-
-\rhnote{INPUT WHAT WE TRIED}
-Our accuracy and loss are shown in \figref{fig:inceptionnet_results}. 
-While our training accuracy quickly reaches 70\%, our validation accuracy only rarely spikes above nominal 50\%. 
-This poor learning is reflected in the plot of our loss function (\figref{fig:loss_inception}) for our validation set, which never stabilizes. 
-Our final accuracy on our training set was 50\%, which, is unimpressive given a binary classification task on a balanced data set. 
-Looking at our confusion matrix in \figref{fig:confusion_inception}, our network almost always predicted failure. 
-While from a robotic execution perspective this means we are unlikely to execute a failure-likely grasp, the over-prediction of failure also means we are unlikely to execute any grasp. 
 
 \begin{figure*}[t!]
     \centering
@@ -61,6 +46,25 @@ While from a robotic execution perspective this means we are unlikely to execute
     \end{subfigure}
 \caption{We plot the accuracy rate and loss of the Inception Net over training epochs for the training and validation set. This network seems to overfit based off of the difference between the accuracy of the training and validation sets. Our confusion matrix in the rightmost column shows we over predicted failure.} \label{fig:inceptionnet_results}
 \end{figure*}
+
+The first network architecture we will explore is the Inception Network~\cite{szegedy2015going}, visualized in \figref{fig:inception_net}. 
+This network style was originally designed to increase the depth and width of a network while keeping computational load the same while operating on ImageNet~\cite{deng2009imagenet}. 
+
+The inception network begins with 1 convolution layer in the beginning with 10 filters of size 3x3. 
+We apply batch normalization to the output of this layer at ReLU as the activation function. 
+We then pass that to three parallel convolutional layers of sizes 1x1, 3x3, and 5x5, each with 16 filters. 
+These outputs are concatenated on the depth dimension and passed through a max pooling layer of size 3x3 and stride 1x1.
+We apply batch normalization, ReLu activation and a dropout of 70\%. 
+The outputs are flattened with global average pooling and then the $z$ value is concatenated on. 
+We then pass through two fully connected units of size 25 and 2 respectively.  
+We apply the softmax function to these final two units to obtain our output for binary classification.
+
+Our accuracy and loss are shown in \figref{fig:inceptionnet_results}. 
+While our training accuracy quickly reaches 70\%, our validation accuracy only rarely spikes above nominal 50\%. 
+This poor learning is reflected in the plot of our loss function (\figref{fig:loss_inception}) for our validation set, which never stabilizes. 
+Our final accuracy on our training set was 50\%, which, is unimpressive given a binary classification task on a balanced data set. 
+Looking at our confusion matrix in \figref{fig:confusion_inception}, our network almost always predicted failure. 
+While from a robotic execution perspective this means we are unlikely to execute a failure-likely grasp, the over-prediction of failure also means we are unlikely to execute any grasp. 
 
 
 \subsection{Res Net}
@@ -81,8 +85,6 @@ We then apply batch normalization and ReLu activation once more before flattened
 
 Like for the other network, the $z$ value is concatenated to this output before passing it to a classifier with a fully connected layer of 2 hidden units.
 We obtain our output via the softmax function.
-
-\rhnote{insert what we tried}
 
 Our accuracy and loss are shown in \figref{fig:resnet_results}. 
 Our training accuracy nears 80\% and our validation accuracy varies between 50\% and 70\%, depending on when we stop our network. 
@@ -134,8 +136,6 @@ We then apply dropout at rate 0.6 and then a max-pooling layer with size 2x2 and
 We flatten this output and pass it through a fully connected layer of 20 units and $L_{1}$ regularization with $\lambda = 0.1$. 
 This is activated by Leaky ReLU (again slope 0.3) and finally connected to a fully connected layer with 2 hidden units (again with $L_{1}$ regularization at $\lambda=0.1$). 
 We apply softmax to these two units to generate our output. 
-
-\rhnote{what we tried}
 
 Our accuracy and loss are shown in \figref{fig:andreas_results}. 
 After 30 training steps, our training and validation accuracy improve with our training accuracy near 70\% and our validation wavering between 50\% and 70\%, depending on when we stop training. 

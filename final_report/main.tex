@@ -56,8 +56,10 @@
 \begin{abstract}
 The goal of this project was to use modified depth images to perform binary classification whether a grasp would succeed, as measured by a grasp stability metric. 
 We utilize the Dex Net 2.0 data base of grasp, images and stability labels~\cite{mahler2017dex}.
-We begin by training variants of the data set with the Dex Net learning architecture before exploring a variety of different network structures. 
-\rhnote{overall results}
+We begin by training variants of the data set with the Dex Net learning architecture (GQ-CNN) before exploring a variety of different network structures. 
+Specifically, we apply three different network architectures, referred to as Inception Net, Res Net and Andreas Net. 
+Despite our tuning, none of these networks were able to outperform GQ-CNN with respect to accuracy performance. 
+We conclude with several discussion points hypothesizing why all of our networks struggled to learn the objective function. 
 \end{abstract}
 
 \input{intro.tex}

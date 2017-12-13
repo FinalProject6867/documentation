@@ -2,15 +2,19 @@
 
 \section{Discussion}
 \label{sec:discussion}
-\rhnote{mention gqcnn generalized better}
 
 The goal of this project was to use modified depth images to perform binary classification whether a grasp would succeed, as measured by a grasp stability metric. 
 We leveraged the recently published Dex Net 2.0 data base by sampling data points~\cite{mahler2017dex}. 
 
 We began by learning using the Dex Net framework, their GQ-CNN, with various input sampling techniques. 
-Aiming for better performance we next experimented with three architectures: Inception Net, Res Net and Andreas Net. 
+Using their pre-trained network, on both our sampled data and their provided data, we were unable to achieve an accuracy rate higher then the percentage of the largest class. 
+We then re-train their network to achieve similar performance to that reported in their original paper, but found this rate to be unsatisfactory on a binary classification task
 
-Overall, we did not achieve the accuracy we were hoping for. 
+Aiming for better performance we next experimented with three architectures: Inception Net, Res Net and Andreas Net. 
+We were unable achieve better performance with any of these networks. 
+Furthermore, despite our regularization attempts, each of these network struggled to generalize as well as the GQ-CNN. 
+
+Overall, even the best performing network (GQ-CNN) did not achieve the accuracy we were hoping for.  
 Taking a step back, we hypothesize three possible reasons. 
 The first is that, although we tried various networks, we did not find the best possible network or combination of hyperparameters. 
 To investigate this, we would continue experimenting with architectures. 
@@ -26,4 +30,5 @@ It is possible that the depth image and distance is not sufficiently powerful en
 Several other grasp learning algorithms leverage a color input, since color can often characterize objects~\cite{zeng2017robotic}.  
 While we attempted to access a data set with color images, the repository was not usable in its published form (it referenced data that was not publicly accessible) and the authors of the repository did not reply to our several inquires. 
 
-Our learning objective is a hotly published research area and much of the work we reference is extremely recent (i.e. Dex Net 2.0 was presented in July of this year and Andreas Net was published to Arvix less than a month ago). \rhnote{some conclusion sentence!}
+Our learning objective is a hotly published research area and much of the work we reference is extremely recent (i.e. Dex Net 2.0 was presented in July of this year and Andreas Net was published to Arvix less than a month ago). 
+Therefore, we realize that there is significant amount of progress to be made in learning robotic grasps. 
